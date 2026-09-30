@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d171f">
+  <meta name="description" content="Explore a deterministic 3D research world. Observe agents, perturb a volumetric field, compare futures and rewind experiments.">
+  <title>Archimedes · World 3D</title>
+  <link rel="icon" href="../icon.svg"><link rel="stylesheet" href="world.css">
+  <script src="engine3d.js" defer></script><script src="renderer.js" defer></script><script src="controller.js" defer></script><script src="world.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Archimedes World 3D"><span class="brand-symbol">A<span>∴</span></span><span>ARCHIMEDES<small>WORLD SIMULATOR <b>0.2</b></small></span></a>
+    <div class="workspace-name"><span class="live-dot"></span> RESEARCH STATION <span class="quiet">/ 001</span></div>
+    <div class="header-actions"><button id="help" class="quiet-button" aria-label="Open controls and help">? <span>Guide</span></button><button id="import" class="quiet-button">Import</button><button id="export" class="outline">Export session <span aria-hidden="true">↗</span></button><input id="file" type="file" accept=".json,application/json" hidden></div>
+  </header>
+  <main class="layout">
+    <aside class="left-panel" aria-label="Experiment controls">
+      <section class="panel-section intro"><p class="eyebrow">THE LABORATORY</p><h1>A world you<br>can question.</h1><p class="muted">Observe. Intervene.<br>Explore what happens next.</p></section>
+      <section class="panel-section"><div class="section-title">01 <h2>World state</h2><span id="run-state" class="badge">PAUSED</span></div>
+        <div class="transport"><button id="run" class="primary"><span aria-hidden="true">▶</span> Run world</button><button id="step" class="square" title="Advance by 0.1 simulation seconds" aria-label="Advance one simulation tick">↦</button></div>
+        <label class="inline-label" for="speed">Simulation speed<select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+        <label for="action">Agent intention</label><select id="action"><option value="survey">Survey the volume</option><option value="anchor">Hold at stations</option><option value="exchange">Exchange stations</option><option value="recharge">Return to source</option></select>
+      </section>
+      <section class="panel-section"><div class="section-title">02 <h2>Interventions</h2></div>
+        <div class="intervention-grid"><button id="pulse"><span class="button-glyph">◎</span>Field pulse</button><button id="blackout"><span class="button-glyph">◌</span>Blind sensors</button><button id="source"><span class="button-glyph">ϟ</span>Source off</button><button id="probe"><span class="button-glyph">↓</span>Drop probe</button></div>
+        <button id="clear-probes" class="text-button">Clear gravity probes</button>
+      </section>
+      <section class="panel-section"><div class="section-title">03 <h2>Possible futures</h2></div>
+        <label for="goal">Planner objective</label><select id="goal"><option value="balance">Balance</option><option value="discovery">Explore new cells</option><option value="resilience">Preserve energy</option></select>
+        <div class="two-columns"><div><label for="depth">Depth</label><select id="depth"><option value="2">2 decisions</option><option value="3" selected>3 decisions</option><option value="4">4 decisions</option></select></div><div><label for="horizon">Per decision</label><select id="horizon"><option value="10">1 second</option><option value="20" selected>2 seconds</option><option value="30">3 seconds</option></select></div></div>
+        <button id="plan" class="full-button">Explore futures <span aria-hidden="true">↗</span></button><button id="counterfactual" class="text-button">Compare source on / off</button>
+      </section>
+      <details class="panel-section advanced"><summary>Kernel & world settings</summary>
+        <label for="coupling">Memory coupling <output id="coupling-value">0.80</output></label><input id="coupling" type="range" min="0" max="2" step="0.05" value="0.8">
+        <button id="reset-model" class="full-button">Reset agent estimates</button>
+        <label for="seed">Reproducible seed</label><input id="seed" type="text" value="ARCHIMEDES-3D-001" maxlength="80">
+        <button id="reset" class="full-button">Initialize new world</button>
+        <p class="muted small">Export before initializing to keep your current session.</p>
+      </details>
+      <div class="panel-footer">MONOLITHIC <span>×</span> ARCHIMEDES<p>Deterministic simulation · Local execution</p></div>
+    </aside>
+    <section class="stage" aria-label="Three-dimensional world and timeline">
+      <div class="viewport-toolbar"><div><span class="live-dot"></span><span id="regime">TRACKING</span><span id="sim-time" class="time">T + 0000.0 s</span></div><label class="camera-label" for="camera">VIEW<select id="camera"><option value="orbit">Orbit</option><option value="follow">Follow agent</option><option value="explore">Enter world</option><option value="top">Top view</option></select></label></div>
+      <div class="world-wrap" id="world-wrap">
+        <canvas id="world" tabindex="0" aria-label="Interactive 3D station. Drag to orbit, scroll to zoom, and click an agent to inspect it."></canvas>
+        <div id="graphics-error" class="graphics-error" hidden></div>
+        <div class="world-heading"><p class="eyebrow">ARCHIMEDES / VOLUMETRIC LAB</p><h2>The first world.</h2><p>24 × 10 × 18 simulation units</p></div>
+        <div class="labels" id="labels" aria-hidden="true"><span id="label-0" class="agent-label lime">ADA</span><span id="label-1" class="agent-label cyan">NOETHER</span><span id="label-2" class="agent-label orange">HYPATIA</span></div>
+        <div id="ghost-label" class="ghost-label" hidden>HYPOTHETICAL PATH</div>
+        <div class="world-bottom"><span id="camera-hint">Drag to orbit · Scroll to zoom · Click an agent</span><button id="home-view" class="quiet-button" title="Reset camera">⌖ Recenter</button></div>
+        <div class="axis-key" aria-hidden="true"><span class="lime">X</span> / <span class="cyan">Y ↑</span> / <span class="orange">Z</span></div>
+      </div>
+      <div class="view-options"><label><input id="field" type="checkbox" checked> Scalar field</label><select id="field-mode" aria-label="Field visualization"><option value="volume">Volume</option><option value="slice">Height slice</option></select><input id="slice" type="range" min="0" max="5" value="2" aria-label="Field height slice" hidden><label><input id="trails" type="checkbox" checked> Trails</label><label><input id="beliefs" type="checkbox" checked> Estimate</label><label><input id="targets" type="checkbox"> Target</label></div>
+      <div class="experiment-output" id="experiment-output"><div><span class="output-icon">⌁</span><strong>One present. Several possible futures.</strong></div><p>Explore futures to preview bounded action sequences. Dashed paths are simulated alternatives.</p></div>
+      <div class="timeline-header"><div><span class="eyebrow">BRANCH HISTORY</span><span id="history-count" class="muted">1 checkpoint</span></div><button id="snapshot" class="quiet-button">+ Checkpoint</button></div>
+      <div id="timeline" class="timeline" aria-label="Restorable checkpoints"></div>
+      <div id="status" class="status" role="status" aria-live="polite">Ready. Run the world, or step through one tick at a time.</div>
+    </section>
+    <aside class="right-panel" aria-label="Agent inspection and telemetry">
+      <section class="panel-section"><p class="eyebrow">LIVE TELEMETRY</p><div class="metric-grid"><div><span>Mean coherence</span><strong id="metric-c">1.000</strong><small>State / estimate agreement</small></div><div><span>Mean energy</span><strong id="metric-energy">82.0<span>%</span></strong><small>Agent reserve</small></div></div><canvas id="spark" height="80" aria-label="Recent coherence and energy histories"></canvas><div class="legend"><span class="lime">● Coherence</span><span class="cyan">● Energy</span><span>0–1</span></div>
+        <div class="metric-row"><span>Volume explored</span><strong id="metric-coverage">0.3%</strong></div><div class="metric-row"><span>Mean divergence D</span><strong id="metric-d">0.0000</strong></div><div class="metric-row"><span>Order parameter Φ</span><strong id="metric-phi">0.800</strong></div>
+      </section>
+      <section class="panel-section inspector"><div class="section-title"><h2>Agent inspector</h2><span class="badge">LIVE</span></div><div class="agent-tabs" role="group" aria-label="Select an agent"><button id="agent-0" class="active">ADA</button><button id="agent-1">NOETHER</button><button id="agent-2">HYPATIA</button></div>
+        <div class="agent-identity"><span id="agent-orb" class="agent-orb"></span><div><h3 id="agent-name">ADA</h3><p id="agent-intent">Surveying the volume</p></div><span class="agent-number" id="agent-number">01</span></div>
+        <div class="position-table"><div><span>POSITION</span><span>X</span><span>Y ↑</span><span>Z</span></div><div><span>Actual</span><b id="actual-x">4.80</b><b id="actual-y">2.00</b><b id="actual-z">5.50</b></div><div><span>Estimate</span><b id="model-x">4.80</b><b id="model-y">2.00</b><b id="model-z">5.50</b></div></div>
+        <div class="metric-row"><span>Speed</span><strong id="agent-speed">0.00 u/s</strong></div><div class="metric-row"><span>Sensor age</span><strong id="agent-sensor">0.0 s</strong></div><div class="metric-row"><span>Energy</span><strong id="agent-energy">82.0%</strong></div><div class="energy-track"><span id="agent-energy-bar"></span></div>
+        <p class="muted small">The pink ring is this agent’s position estimate. Agents sense the field intermittently; the planner inspects the full simulated state.</p>
+      </section>
+      <section class="panel-section"><div class="section-title"><h2>Event log</h2><span class="badge" id="probe-count">0 PROBES</span></div><ol id="events" class="event-log"></ol></section>
+      <details class="panel-section model-note"><summary>About this model</summary><p>A bounded 3D extension of Archimedes: inertial agents, source–diffusion–decay field, recursive observers, and finite lookahead.</p><p>Buildings are solid. Station rings mark non-solid waypoints. Gravity probes collide with the floor, boundary and buildings; probes and agents do not collide with each other.</p><p>Coherence measures state–estimate agreement. This prototype does not establish consciousness, AGI, physical EFMW validity, or real-world predictive accuracy.</p><a href="MATHEMATICS.md">Mathematics & evidence boundary ↗</a></details>
+    </aside>
+  </main>
+  <dialog id="guide" aria-labelledby="guide-title"><form method="dialog"><button class="dialog-close" aria-label="Close guide">×</button></form><p class="eyebrow">WELCOME TO THE STATION</p><h2 id="guide-title">Your first experiment.</h2><ol><li><b>Run world.</b> Watch three agents move through a 3D scalar field.</li><li><b>Blind sensors.</b> Compare actual and estimated positions and field readings while observations are held.</li><li><b>Explore futures.</b> The world pauses. Select a candidate to preview its path, then apply its first intention.</li><li><b>Restore a checkpoint.</b> Change the intervention to form a different branch.</li><li><b>Drop a probe.</b> Observe gravity and contact with the station floor.</li></ol><p><b>Orbit:</b> drag; wheel or pinch to zoom; Shift-drag to pan. <b>Enter world:</b> drag to look; W/A/S/D to move; Q/E to descend/ascend. Focus the world first. <b>Space:</b> play/pause.</p><p>Export a JSON session to preserve exact state, random seed and branch history. This app runs locally and sends no session data.</p><form method="dialog"><button class="primary">Enter the laboratory</button></form></dialog>
+  <noscript><p class="graphics-error">Enable JavaScript to run this local simulation.</p></noscript>
+</body>
+</html>
