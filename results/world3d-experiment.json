@@ -1,0 +1,312 @@
+{
+  "version": "0.2.0",
+  "node": "v24.19.0",
+  "kind": "developmental synthetic comparison; not a confirmatory study",
+  "schedule": "400 ticks; pulse at 100; sensor blackout at 160",
+  "runs": [
+    {
+      "seed": "3D-CHECK-001",
+      "coupling": 0,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9823856503067699,
+        "D": 0.036634516225240644,
+        "phi": 0.9505777368635536,
+        "energy": 0.46087830589605855,
+        "coverage": 0.0720486111111111,
+        "regime": "tracking"
+      },
+      "collisions": 1,
+      "checksum": "8497cc64",
+      "elapsedMs": 136.400371
+    },
+    {
+      "seed": "3D-CHECK-001",
+      "coupling": 0,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9958836786395536,
+        "D": 0.00021138392004341157,
+        "phi": 0.9998569851040598,
+        "energy": 1,
+        "coverage": 0.010416666666666666,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "a5dc080b",
+      "elapsedMs": 114.783163
+    },
+    {
+      "seed": "3D-CHECK-001",
+      "coupling": 0.8,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9843001066832154,
+        "D": 0.036608468379691304,
+        "phi": 0.9436563553743249,
+        "energy": 0.5173725938065553,
+        "coverage": 0.0703125,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "d7cee1e3",
+      "elapsedMs": 116.69222500000001
+    },
+    {
+      "seed": "3D-CHECK-001",
+      "coupling": 0.8,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9958836786395621,
+        "D": 0.00021138392004341157,
+        "phi": 0.99985698510406,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "2a256069",
+      "elapsedMs": 119.71001899999999
+    },
+    {
+      "seed": "3D-CHECK-002",
+      "coupling": 0,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9829686816659863,
+        "D": 0.05094346061084925,
+        "phi": 0.9473842773644693,
+        "energy": 0.4738684619564002,
+        "coverage": 0.07378472222222222,
+        "regime": "tracking"
+      },
+      "collisions": 1,
+      "checksum": "cf4886ce",
+      "elapsedMs": 110.15842899999996
+    },
+    {
+      "seed": "3D-CHECK-002",
+      "coupling": 0,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9960005433355117,
+        "D": 0.00016890136841462547,
+        "phi": 0.9998841616775143,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "9fe0d43b",
+      "elapsedMs": 106.68167799999992
+    },
+    {
+      "seed": "3D-CHECK-002",
+      "coupling": 0.8,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9841442719064016,
+        "D": 0.04703422693460991,
+        "phi": 0.9416540934870922,
+        "energy": 0.5302951236381145,
+        "coverage": 0.0703125,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "fc0574cb",
+      "elapsedMs": 100.37026800000001
+    },
+    {
+      "seed": "3D-CHECK-002",
+      "coupling": 0.8,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9960005433355397,
+        "D": 0.00016890136841462547,
+        "phi": 0.9998841616775144,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "2a1eb5d1",
+      "elapsedMs": 104.87084000000004
+    },
+    {
+      "seed": "3D-CHECK-003",
+      "coupling": 0,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9837091810786173,
+        "D": 0.040881714728372535,
+        "phi": 0.949859378742171,
+        "energy": 0.4707714897125029,
+        "coverage": 0.07291666666666667,
+        "regime": "tracking"
+      },
+      "collisions": 1,
+      "checksum": "b36f0e5e",
+      "elapsedMs": 103.42044099999998
+    },
+    {
+      "seed": "3D-CHECK-003",
+      "coupling": 0,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9979579213775024,
+        "D": 0.00005685947244464675,
+        "phi": 0.9999373560607836,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "d5834f21",
+      "elapsedMs": 95.38202000000001
+    },
+    {
+      "seed": "3D-CHECK-003",
+      "coupling": 0.8,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9849004528649808,
+        "D": 0.047086502346048886,
+        "phi": 0.9423721158176704,
+        "energy": 0.5273165302346656,
+        "coverage": 0.07118055555555555,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "a25198c1",
+      "elapsedMs": 98.21149999999989
+    },
+    {
+      "seed": "3D-CHECK-003",
+      "coupling": 0.8,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.997957921377508,
+        "D": 0.00005685947244464675,
+        "phi": 0.9999373560607837,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "542f3f9a",
+      "elapsedMs": 101.21311999999989
+    },
+    {
+      "seed": "3D-CHECK-004",
+      "coupling": 0,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.983240159640368,
+        "D": 0.045796032335646185,
+        "phi": 0.9518430081779723,
+        "energy": 0.4735020489139941,
+        "coverage": 0.07291666666666667,
+        "regime": "tracking"
+      },
+      "collisions": 1,
+      "checksum": "416ef627",
+      "elapsedMs": 100.45761500000003
+    },
+    {
+      "seed": "3D-CHECK-004",
+      "coupling": 0,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.9980065533004975,
+        "D": 0.00005652240014742508,
+        "phi": 0.999950894873948,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "c6452d97",
+      "elapsedMs": 101.71387000000004
+    },
+    {
+      "seed": "3D-CHECK-004",
+      "coupling": 0.8,
+      "action": "survey",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.986374509548457,
+        "D": 0.04724357613624591,
+        "phi": 0.9458770035692906,
+        "energy": 0.5300026496433975,
+        "coverage": 0.0703125,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "0d2dd384",
+      "elapsedMs": 102.20899399999985
+    },
+    {
+      "seed": "3D-CHECK-004",
+      "coupling": 0.8,
+      "action": "recharge",
+      "ticks": 400,
+      "metrics": {
+        "tick": 400,
+        "time": 40,
+        "C": 0.998006553300503,
+        "D": 0.00005652240014742508,
+        "phi": 0.999950894873948,
+        "energy": 1,
+        "coverage": 0.011284722222222222,
+        "regime": "tracking"
+      },
+      "collisions": 0,
+      "checksum": "4d6f66cc",
+      "elapsedMs": 96.89691599999992
+    }
+  ]
+}
