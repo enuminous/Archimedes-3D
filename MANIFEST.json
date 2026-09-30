@@ -1,0 +1,20 @@
+{
+  "project": "The Archimedes Engine",
+  "version": "0.2.0",
+  "packaged": "2026-09-30",
+  "source_repository": "https://github.com/enuminous/Archimedes-Engine",
+  "base_commit": "b1531d6668beed2afdc94bf18a6072ee3b30f679",
+  "candidate_branch": "feat/world3d-laboratory",
+  "entry_points": {"original_2d": "index.html", "world3d": "world3d/index.html"},
+  "standalone": ["Archimedes-Engine.html", "Archimedes-World3D.html"],
+  "kernel_versions": {"original_2d": "0.1.0", "world3d": "0.2.0"},
+  "node_tests_passed": 56,
+  "node_tests_failed": 0,
+  "test_runtime": "Node v24.19.0",
+  "new_3d_tests": {"engine_controller_geometry": 18, "interface_contract": 6},
+  "new_3d_development_runs": 16,
+  "offscreen_graphics": {"shader_compile": "passed", "gl_error": 0, "backend": "llvmpipe (LLVM 20.1.2, 256 bits)", "scene_checksum": "04b341ca"},
+  "real_browser_review": "not performed; see world3d/VALIDATION.md",
+  "publication": "candidate source branch; merging and Pages deployment are separate operations",
+  "license": "not selected; see RIGHTS.md"
+}

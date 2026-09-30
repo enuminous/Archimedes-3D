@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d171f">
+  <meta name="description" content="Explore a deterministic 3D research world. Observe agents, perturb a volumetric field, compare futures and rewind experiments.">
+  <title>Archimedes · World 3D</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTMiIGZpbGw9IiNjN2U3YzQiLz48ZyBzdHJva2U9IiMxMzI1MmIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi44Ij48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyMCIvPjxlbGxpcHNlIGN4PSIzMiIgY3k9IjMyIiByeD0iOSIgcnk9IjIwIiB0cmFuc2Zvcm09InJvdGF0ZSgzNSAzMiAzMikiLz48cGF0aCBkPSJNMTEgMzJoNDJNMzIgOXY0NiIvPjwvZz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI0IiBmaWxsPSIjMTMyNTJiIi8+PC9zdmc+Cg=="><style>:root{color-scheme:dark;--bg:#0d171f;--panel:#111d26;--edge:#25353e;--ink:#e9eee9;--muted:#97a9ad;--lime:#c5f776;--cyan:#57d1f0;--orange:#ffa363;--mono:ui-monospace,SFMono-Regular,Consolas,monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.5 var(--sans)}button,input,select{font:inherit}button,a,input,select,summary{outline-offset:4px}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,canvas:focus-visible{outline:2px solid var(--lime)}button{border:1px solid var(--edge);border-radius:5px;color:var(--ink);background:#172630;cursor:pointer;padding:9px 11px;transition:background .15s,border-color .15s}button:hover{background:#213540;border-color:#4c6570}button:disabled{opacity:.45;cursor:wait}select,input[type=text]{width:100%;color:var(--ink);background:#0e1a22;border:1px solid #30424a;border-radius:4px;padding:9px 8px;min-width:0}select{cursor:pointer}input[type=checkbox],input[type=range]{accent-color:var(--lime)}input[type=range]{width:100%;cursor:pointer}label{display:block;color:#b4c2c3;font-size:11px;margin:11px 0 6px}a{color:var(--lime);text-decoration:none}h1,h2,h3,p{margin:0}h1{font-weight:470;font-size:28px;line-height:1.15;letter-spacing:-1px}h2{font-size:13px;font-weight:550}h3{font-size:19px;font-weight:520}small,.small{font-size:11px}.muted{color:var(--muted)}.quiet{color:#6d848c}.lime{color:var(--lime)}.cyan{color:var(--cyan)}.orange{color:var(--orange)}.eyebrow{font:10px var(--mono);letter-spacing:1.6px;color:var(--muted)}.topbar{height:76px;padding:0 25px;border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:12px;align-items:center;color:var(--ink);font-size:14px;font-weight:650;letter-spacing:2.2px}.brand small{display:block;font:9px var(--mono);letter-spacing:2px;color:var(--muted);margin-top:3px}.brand small b{color:var(--lime);font-weight:400}.brand-symbol{width:37px;height:40px;position:relative;border:1px solid #6f8978;border-radius:50% 50% 6px 6px;color:var(--lime);font:26px Georgia,serif;text-align:center;line-height:36px}.brand-symbol span{position:absolute;font-size:10px;right:2px;bottom:-10px}.workspace-name{font:10px var(--mono);letter-spacing:1.3px;display:flex;align-items:center;gap:9px}.live-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);box-shadow:0 0 7px #c5f73030}.header-actions{display:flex;gap:8px;align-items:center}.quiet-button{border-color:transparent;background:transparent;color:#b7c7c9}.outline{background:transparent}.primary{background:var(--lime);color:#152319;border-color:var(--lime);font-weight:650}.primary:hover{background:#d5ffa0;border-color:#d5ffa0}.layout{display:grid;grid-template-columns:232px minmax(420px,1fr) 282px;min-height:calc(100vh - 76px)}.left-panel,.right-panel{background:var(--panel)}.left-panel{border-right:1px solid var(--edge)}.right-panel{border-left:1px solid var(--edge)}.panel-section{padding:22px 20px;border-bottom:1px solid var(--edge)}.intro .eyebrow{margin-bottom:16px}.intro .muted{margin-top:13px;font-size:12px}.section-title{display:flex;align-items:center;gap:8px;font:10px var(--mono);color:#718d95;margin-bottom:14px}.section-title h2{font-family:var(--sans);color:var(--ink)}.section-title .badge{margin-left:auto}.badge{border:1px solid #34454b;border-radius:3px;padding:2px 5px;font:9px var(--mono);letter-spacing:.5px;color:#9db1b5;white-space:nowrap}.badge.running{color:var(--lime);border-color:#60764c}.transport{display:flex;gap:6px}.transport .primary{flex:1}.transport .primary span{font-size:10px;margin-right:7px}.square{width:38px;font-size:18px;padding:5px}.inline-label{display:flex;align-items:center;justify-content:space-between;gap:10px}.inline-label select{width:61px;padding:4px 6px}.intervention-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.intervention-grid button{text-align:left;font-size:10px;padding:10px 9px}.button-glyph{display:block;font-size:21px;line-height:1.3;color:#bad0c6;margin-bottom:3px}.text-button{background:none;border:none;font-size:11px;color:#acbec1;width:100%;padding:10px 0 0;text-align:left}.two-columns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.two-columns select{font-size:11px;padding:8px 4px}.full-button{width:100%;margin-top:11px;font-size:12px;text-align:left;display:flex;justify-content:space-between}.advanced{padding-top:15px;padding-bottom:15px}.advanced summary,.model-note summary{cursor:pointer;color:#bac7c8;font-size:11px}.advanced output{float:right;color:var(--lime);font-family:var(--mono)}.advanced p{margin-top:9px}.panel-footer{padding:25px 20px;font:9px var(--mono);letter-spacing:1px;color:#8ba49f}.panel-footer span{color:#536d77}.panel-footer p{font:9px var(--sans);margin-top:9px;letter-spacing:0;color:#71838b}.stage{min-width:0;display:flex;flex-direction:column;background:#0c1820}.viewport-toolbar{padding:15px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--edge);height:55px;gap:10px}.viewport-toolbar>div{display:flex;gap:8px;align-items:center;font:9px var(--mono);letter-spacing:1px}.time{color:#94aaa9;margin-left:10px;white-space:nowrap}.camera-label{display:flex;align-items:center;gap:8px;font:9px var(--mono);margin:0}.camera-label select{font:10px var(--sans);padding:5px;min-width:95px}.world-wrap{height:calc(100vh - 360px);min-height:390px;max-height:800px;position:relative;overflow:hidden;flex:1}#world{width:100%;height:100%;display:block;touch-action:none}.world-heading{position:absolute;left:25px;top:23px;pointer-events:none}.world-heading h2{font-size:24px;font-weight:450;letter-spacing:-.6px;margin:9px 0 4px}.world-heading>p:last-child{font:10px var(--mono);color:#698791}.world-heading .eyebrow{font-size:8px;letter-spacing:1.4px;color:#7c979d}.labels{position:absolute;inset:0;pointer-events:none}.agent-label{position:absolute;display:block;font:8px var(--mono);letter-spacing:1.2px;background:#08131be6;border:1px solid #47636588;border-radius:3px;padding:3px 6px;transform:translate(-50%,-100%);white-space:nowrap}.world-bottom{position:absolute;bottom:15px;left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;gap:10px}.world-bottom>span{font-size:10px;color:#849da6;pointer-events:none;max-width:75%}.world-bottom button{font-size:10px;background:#0b1720b0;padding:5px}.axis-key{position:absolute;right:24px;top:28px;font:10px var(--mono);opacity:.7}.ghost-label{position:absolute;left:24px;bottom:55px;font:9px var(--mono);letter-spacing:1.4px;color:var(--lime);border:1px solid #668849;background:#101f20cc;padding:5px 8px}.view-options{padding:10px 18px;display:flex;align-items:center;flex-wrap:wrap;gap:9px;border-block:1px solid var(--edge);background:#102029}.view-options label{margin:0;display:flex;align-items:center;gap:4px;font-size:10px;white-space:nowrap}.view-options select{width:84px;font-size:10px;padding:3px 4px}.view-options input[type=range]{width:58px}.experiment-output{padding:18px 22px;min-height:90px;border-bottom:1px solid var(--edge)}.experiment-output>div:first-child{display:flex;align-items:center;gap:10px}.experiment-output strong{font-size:12px;font-weight:500}.experiment-output p{font-size:11px;color:#8ca3aa;margin-top:6px}.output-icon{font-size:23px;color:var(--lime);line-height:1}.future-cards{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}.future-card{flex:1;min-width:135px;text-align:left;font-size:10px;padding:9px 11px;background:#13252d}.future-card.active{border-color:#aacb79;background:#23352b}.future-card strong{display:block;font:10px var(--mono)}.future-card small{display:block;color:var(--muted);margin-top:5px;font:9px var(--mono)}.future-actions{margin-top:10px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}.future-actions button{font-size:11px;padding:7px 10px}.future-actions span{font:9px var(--mono);color:#8ca3aa}.timeline-header{padding:14px 20px 8px;display:flex;align-items:center;justify-content:space-between;gap:10px}.timeline-header>div{display:flex;gap:10px;align-items:center}.timeline-header .eyebrow{font-size:8px}.timeline-header .muted{font-size:10px}.timeline-header button{font-size:10px;padding:5px 0}.timeline{display:flex;overflow-x:auto;padding:3px 20px 15px;gap:8px;min-height:86px;scrollbar-width:thin;scrollbar-color:#4e686e #13202a}.checkpoint{min-width:120px;max-width:155px;text-align:left;background:#12232c;padding:8px 11px;flex:none;border-color:#2a414b}.checkpoint.active{border-color:#a8c67b}.checkpoint strong{display:block;font-size:10px;font-weight:450;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.checkpoint small{display:block;margin-top:5px;color:#7f9aa3;font:9px var(--mono)}.checkpoint.active strong{color:var(--lime)}.status{padding:9px 20px;font-size:10px;color:#87a19f;border-top:1px solid var(--edge);min-height:34px}.status.error{color:#ffa5a0}.right-panel .eyebrow{margin-bottom:19px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric-grid>div>span{display:block;color:#9eafb2;font-size:10px}.metric-grid strong{display:block;font:29px/1.5 var(--mono);letter-spacing:-1.8px;margin-top:3px}.metric-grid strong span{font-size:16px;letter-spacing:0}.metric-grid small{display:block;font-size:9px;color:#6f8a93}.metric-grid>div:first-child strong{color:var(--lime)}#spark{display:block;width:100%;height:64px;margin-top:15px}.legend{display:flex;gap:9px;align-items:center;font-size:9px;margin-bottom:13px}.legend span:last-child{margin-left:auto;color:#64818b}.metric-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;padding:8px 0;color:#9ab0b5}.metric-row strong{font:11px var(--mono);color:#d0ddda;font-weight:400}.agent-tabs{display:flex;gap:4px}.agent-tabs button{font:9px var(--mono);padding:7px 6px;flex:1;background:transparent}.agent-tabs button.active{background:#2b392a;border-color:#778a5a;color:var(--lime)}.agent-identity{display:flex;align-items:center;gap:10px;padding:22px 0}.agent-identity p{font-size:9px;color:#8ba2aa}.agent-orb{display:inline-block;width:28px;height:28px;background:var(--lime);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);box-shadow:0 0 20px #c5f77666}.agent-number{margin-left:auto;font:26px var(--mono);color:#334c56}.position-table{border-block:1px solid #273c44;padding:10px 0;margin-bottom:9px}.position-table>div{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:7px;font:10px var(--mono);padding:5px 0}.position-table b{font-weight:400;text-align:right;color:#d2dcd7}.position-table span{color:#809ca7;font-size:9px}.position-table>div:first-child span:not(:first-child){text-align:right;font-size:8px}.position-table>div:last-child b{color:#dd9297}.energy-track{height:3px;background:#293b40;margin-bottom:15px}.energy-track span{display:block;height:3px;background:var(--lime);width:82%}.event-log{list-style:none;padding:0;margin:0}.event-log li{border-left:1px solid #385058;padding:0 0 16px 12px;margin-left:3px;font-size:10px;color:#a0b4b8;position:relative}.event-log li:before{content:'';position:absolute;left:-3px;top:4px;width:5px;height:5px;background:#6a8d8e;border-radius:50%}.event-log li:first-child:before{background:var(--lime)}.event-log time{display:block;color:#577984;font:9px var(--mono);margin-bottom:4px}.model-note p{font-size:10px;color:#95a8ae;margin-top:10px}.model-note a{display:block;margin-top:12px;font-size:10px}.graphics-error{position:absolute;z-index:10;inset:30% 10% auto;background:#17252e;border:1px solid #8d7165;padding:25px;color:#f6d2ac;border-radius:8px}dialog{border:1px solid #536855;border-radius:10px;padding:35px;max-width:560px;width:calc(100% - 32px);background:#13232b;color:var(--ink)}dialog::backdrop{background:#030b12bf;backdrop-filter:blur(4px)}dialog h2{font-size:27px;letter-spacing:-.6px;margin:13px 0 21px}dialog ol{padding-left:20px}dialog li{margin-bottom:12px;color:#b3c4c6;font-size:12px}dialog p:not(.eyebrow){font-size:12px;color:#a9bfc2;margin:16px 0}dialog .primary{margin-top:10px}.dialog-close{position:absolute;right:15px;top:12px;background:none;border:none;font-size:24px}[hidden]{display:none!important}@media(min-width:1600px){.layout{grid-template-columns:250px minmax(420px,1fr) 310px}.panel-section{padding:25px}.world-heading h2{font-size:30px}}@media(max-width:1180px){.layout{grid-template-columns:215px minmax(400px,1fr)}.right-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--edge)}.right-panel .model-note{grid-column:1/-1}.workspace-name{display:none}.world-wrap{min-height:510px;height:calc(100vh - 350px)}.panel-section{padding:18px}.right-panel .panel-section{border-right:1px solid var(--edge)}}@media(max-width:720px){.topbar{height:66px;padding:0 14px;gap:10px}.brand{font-size:11px;letter-spacing:1.7px;gap:8px}.brand-symbol{width:29px;height:32px;font-size:22px;line-height:29px}.brand small{font-size:7px}.header-actions{gap:3px}.header-actions button{font-size:10px;padding:7px}.header-actions #help span{display:none}.layout{display:flex;flex-direction:column;min-height:0}.stage{order:0}.left-panel{order:1;display:grid;grid-template-columns:1fr 1fr;border-right:0;border-top:1px solid var(--edge)}.left-panel .intro{display:none}.left-panel .panel-footer{grid-column:1/-1}.left-panel>.panel-section{border-right:1px solid var(--edge)}.right-panel{order:2;grid-template-columns:1fr 1fr}.right-panel>.panel-section:nth-child(3){grid-column:1/-1}.world-wrap{height:60vh;min-height:380px;max-height:620px;flex:none}.viewport-toolbar{padding:11px 14px}.viewport-toolbar .time{margin-left:3px;font-size:8px}.world-heading{left:18px;top:18px}.world-heading h2{font-size:21px}.world-bottom{left:14px;right:14px}.world-bottom>span{font-size:9px;max-width:70%}.view-options{gap:7px;padding:10px 12px}.view-options label{font-size:9px}.experiment-output{padding:16px}.timeline-header{padding-inline:16px}.timeline{padding-inline:16px}.metric-grid strong{font-size:23px}.right-panel .panel-section{padding:16px}.agent-tabs button{font-size:8px;padding:6px 3px}.position-table>div{gap:4px;font-size:9px}.position-table span{font-size:8px}}@media(max-width:420px){.right-panel{display:block}.world-heading .eyebrow{font-size:7px}.world-heading h2{font-size:19px}.world-heading>p:last-child{font-size:8px}.left-panel>.panel-section{padding:15px}.time{letter-spacing:0}.camera-label{font-size:8px}.camera-label select{min-width:75px;width:87px}.viewport-toolbar>div{gap:5px}.metric-grid strong{font-size:30px}}
+</style>
+  
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Archimedes World 3D"><span class="brand-symbol">A<span>∴</span></span><span>ARCHIMEDES<small>WORLD SIMULATOR <b>0.2</b></small></span></a>
+    <div class="workspace-name"><span class="live-dot"></span> RESEARCH STATION <span class="quiet">/ 001</span></div>
+    <div class="header-actions"><button id="help" class="quiet-button" aria-label="Open controls and help">? <span>Guide</span></button><button id="import" class="quiet-button">Import</button><button id="export" class="outline">Export session <span aria-hidden="true">↗</span></button><input id="file" type="file" accept=".json,application/json" hidden></div>
+  </header>
+  <main class="layout">
+    <aside class="left-panel" aria-label="Experiment controls">
+      <section class="panel-section intro"><p class="eyebrow">THE LABORATORY</p><h1>A world you<br>can question.</h1><p class="muted">Observe. Intervene.<br>Explore what happens next.</p></section>
+      <section class="panel-section"><div class="section-title">01 <h2>World state</h2><span id="run-state" class="badge">PAUSED</span></div>
+        <div class="transport"><button id="run" class="primary"><span aria-hidden="true">▶</span> Run world</button><button id="step" class="square" title="Advance by 0.1 simulation seconds" aria-label="Advance one simulation tick">↦</button></div>
+        <label class="inline-label" for="speed">Simulation speed<select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+        <label for="action">Agent intention</label><select id="action"><option value="survey">Survey the volume</option><option value="anchor">Hold at stations</option><option value="exchange">Exchange stations</option><option value="recharge">Return to source</option></select>
+      </section>
+      <section class="panel-section"><div class="section-title">02 <h2>Interventions</h2></div>
+        <div class="intervention-grid"><button id="pulse"><span class="button-glyph">◎</span>Field pulse</button><button id="blackout"><span class="button-glyph">◌</span>Blind sensors</button><button id="source"><span class="button-glyph">ϟ</span>Source off</button><button id="probe"><span class="button-glyph">↓</span>Drop probe</button></div>
+        <button id="clear-probes" class="text-button">Clear gravity probes</button>
+      </section>
+      <section class="panel-section"><div class="section-title">03 <h2>Possible futures</h2></div>
+        <label for="goal">Planner objective</label><select id="goal"><option value="balance">Balance</option><option value="discovery">Explore new cells</option><option value="resilience">Preserve energy</option></select>
+        <div class="two-columns"><div><label for="depth">Depth</label><select id="depth"><option value="2">2 decisions</option><option value="3" selected>3 decisions</option><option value="4">4 decisions</option></select></div><div><label for="horizon">Per decision</label><select id="horizon"><option value="10">1 second</option><option value="20" selected>2 seconds</option><option value="30">3 seconds</option></select></div></div>
+        <button id="plan" class="full-button">Explore futures <span aria-hidden="true">↗</span></button><button id="counterfactual" class="text-button">Compare source on / off</button>
+      </section>
+      <details class="panel-section advanced"><summary>Kernel & world settings</summary>
+        <label for="coupling">Memory coupling <output id="coupling-value">0.80</output></label><input id="coupling" type="range" min="0" max="2" step="0.05" value="0.8">
+        <button id="reset-model" class="full-button">Reset agent estimates</button>
+        <label for="seed">Reproducible seed</label><input id="seed" type="text" value="ARCHIMEDES-3D-001" maxlength="80">
+        <button id="reset" class="full-button">Initialize new world</button>
+        <p class="muted small">Export before initializing to keep your current session.</p>
+      </details>
+      <div class="panel-footer">MONOLITHIC <span>×</span> ARCHIMEDES<p>Deterministic simulation · Local execution</p></div>
+    </aside>
+    <section class="stage" aria-label="Three-dimensional world and timeline">
+      <div class="viewport-toolbar"><div><span class="live-dot"></span><span id="regime">TRACKING</span><span id="sim-time" class="time">T + 0000.0 s</span></div><label class="camera-label" for="camera">VIEW<select id="camera"><option value="orbit">Orbit</option><option value="follow">Follow agent</option><option value="explore">Enter world</option><option value="top">Top view</option></select></label></div>
+      <div class="world-wrap" id="world-wrap">
+        <canvas id="world" tabindex="0" aria-label="Interactive 3D station. Drag to orbit, scroll to zoom, and click an agent to inspect it."></canvas>
+        <div id="graphics-error" class="graphics-error" hidden></div>
+        <div class="world-heading"><p class="eyebrow">ARCHIMEDES / VOLUMETRIC LAB</p><h2>The first world.</h2><p>24 × 10 × 18 simulation units</p></div>
+        <div class="labels" id="labels" aria-hidden="true"><span id="label-0" class="agent-label lime">ADA</span><span id="label-1" class="agent-label cyan">NOETHER</span><span id="label-2" class="agent-label orange">HYPATIA</span></div>
+        <div id="ghost-label" class="ghost-label" hidden>HYPOTHETICAL PATH</div>
+        <div class="world-bottom"><span id="camera-hint">Drag to orbit · Scroll to zoom · Click an agent</span><button id="home-view" class="quiet-button" title="Reset camera">⌖ Recenter</button></div>
+        <div class="axis-key" aria-hidden="true"><span class="lime">X</span> / <span class="cyan">Y ↑</span> / <span class="orange">Z</span></div>
+      </div>
+      <div class="view-options"><label><input id="field" type="checkbox" checked> Scalar field</label><select id="field-mode" aria-label="Field visualization"><option value="volume">Volume</option><option value="slice">Height slice</option></select><input id="slice" type="range" min="0" max="5" value="2" aria-label="Field height slice" hidden><label><input id="trails" type="checkbox" checked> Trails</label><label><input id="beliefs" type="checkbox" checked> Estimate</label><label><input id="targets" type="checkbox"> Target</label></div>
+      <div class="experiment-output" id="experiment-output"><div><span class="output-icon">⌁</span><strong>One present. Several possible futures.</strong></div><p>Explore futures to preview bounded action sequences. Dashed paths are simulated alternatives.</p></div>
+      <div class="timeline-header"><div><span class="eyebrow">BRANCH HISTORY</span><span id="history-count" class="muted">1 checkpoint</span></div><button id="snapshot" class="quiet-button">+ Checkpoint</button></div>
+      <div id="timeline" class="timeline" aria-label="Restorable checkpoints"></div>
+      <div id="status" class="status" role="status" aria-live="polite">Ready. Run the world, or step through one tick at a time.</div>
+    </section>
+    <aside class="right-panel" aria-label="Agent inspection and telemetry">
+      <section class="panel-section"><p class="eyebrow">LIVE TELEMETRY</p><div class="metric-grid"><div><span>Mean coherence</span><strong id="metric-c">1.000</strong><small>State / estimate agreement</small></div><div><span>Mean energy</span><strong id="metric-energy">82.0<span>%</span></strong><small>Agent reserve</small></div></div><canvas id="spark" height="80" aria-label="Recent coherence and energy histories"></canvas><div class="legend"><span class="lime">● Coherence</span><span class="cyan">● Energy</span><span>0–1</span></div>
+        <div class="metric-row"><span>Volume explored</span><strong id="metric-coverage">0.3%</strong></div><div class="metric-row"><span>Mean divergence D</span><strong id="metric-d">0.0000</strong></div><div class="metric-row"><span>Order parameter Φ</span><strong id="metric-phi">0.800</strong></div>
+      </section>
+      <section class="panel-section inspector"><div class="section-title"><h2>Agent inspector</h2><span class="badge">LIVE</span></div><div class="agent-tabs" role="group" aria-label="Select an agent"><button id="agent-0" class="active">ADA</button><button id="agent-1">NOETHER</button><button id="agent-2">HYPATIA</button></div>
+        <div class="agent-identity"><span id="agent-orb" class="agent-orb"></span><div><h3 id="agent-name">ADA</h3><p id="agent-intent">Surveying the volume</p></div><span class="agent-number" id="agent-number">01</span></div>
+        <div class="position-table"><div><span>POSITION</span><span>X</span><span>Y ↑</span><span>Z</span></div><div><span>Actual</span><b id="actual-x">4.80</b><b id="actual-y">2.00</b><b id="actual-z">5.50</b></div><div><span>Estimate</span><b id="model-x">4.80</b><b id="model-y">2.00</b><b id="model-z">5.50</b></div></div>
+        <div class="metric-row"><span>Speed</span><strong id="agent-speed">0.00 u/s</strong></div><div class="metric-row"><span>Sensor age</span><strong id="agent-sensor">0.0 s</strong></div><div class="metric-row"><span>Energy</span><strong id="agent-energy">82.0%</strong></div><div class="energy-track"><span id="agent-energy-bar"></span></div>
+        <p class="muted small">The pink ring is this agent’s position estimate. Agents sense the field intermittently; the planner inspects the full simulated state.</p>
+      </section>
+      <section class="panel-section"><div class="section-title"><h2>Event log</h2><span class="badge" id="probe-count">0 PROBES</span></div><ol id="events" class="event-log"></ol></section>
+      <details class="panel-section model-note"><summary>About this model</summary><p>A bounded 3D extension of Archimedes: inertial agents, source–diffusion–decay field, recursive observers, and finite lookahead.</p><p>Buildings are solid. Station rings mark non-solid waypoints. Gravity probes collide with the floor, boundary and buildings; probes and agents do not collide with each other.</p><p>Coherence measures state–estimate agreement. This prototype does not establish consciousness, AGI, physical EFMW validity, or real-world predictive accuracy.</p><a href="data:text/markdown;base64,IyBBcmNoaW1lZGVzIFdvcmxkIDNEIOKAlCBtYXRoZW1hdGljYWwgY29udHJhY3QgdjAuMi4wCgpEYXRlOiBTZXB0ZW1iZXIgMzAsIDIwMjYuIFRoaXMgZG9jdW1lbnQgc3BlY2lmaWVzIGBlbmdpbmUzZC5qc2AuIFRoZSBvcmlnaW5hbCAyRCBjb250cmFjdCByZW1haW5zIGluIGBkb2NzL01BVEhFTUFUSUNTLm1kYC4KCiMjIDEuIFN0YXRlIGFuZCB1bml0cwoKVGhlIGJveCBoYXMgZGltZW5zaW9ucyAkTD0oMjQsMTAsMTgpJCBpbiBzaW11bGF0aW9uIGxlbmd0aCB1bml0cywgd2l0aCAkeSQgdmVydGljYWwuIFRoZXJlIGFyZSAkTj0oMTYsNiwxMikkIGNlbGwgY2VudGVycyBhbmQgJDExNTIkIHNjYWxhciBzYW1wbGVzLiBTcGFjaW5nIGlzICRoX2k9TF9pL05faSQuIFRoZSBmaXhlZCBzdGVwIGlzICRcRGVsdGEgdD0wLjEkIHNpbXVsYXRpb24gc2Vjb25kcy4gTm8gY29udmVyc2lvbiB0byBtZWFzdXJlZCBsYWJvcmF0b3J5IHVuaXRzIGlzIGNhbGlicmF0ZWQuCgpXb3JsZCBzdGF0ZSBjb250YWlucyB0aWNrLCBzZWVkLCB4b3JzaGlmdDMyIFBSTkcgc3RhdGUsIHBhcmFtZXRlcnMsIGludGVudGlvbiwgb2JqZWN0aXZlLCBzb3VyY2UgZmxhZywgYmxhY2tvdXQgY291bnQsIGZpZWxkLCBiaW5hcnkgdmlzaXRlZCB2b2x1bWUsIHRocmVlIGFnZW50cywgZ3Jhdml0eSBwcm9iZXMsIGJvdW5kZWQgdHJhY2VzL2V2ZW50cyBhbmQgY29udGFjdCBjb3VudGVycy4gRXZlcnkgdmFyaWFibGUgYWZmZWN0aW5nIGNvbnRpbnVhdGlvbiBpcyBzZXJpYWxpemVkLiBDYW1lcmEgcG9zZSBhbmQgZGlzcGxheSBjaG9pY2VzIGFyZSBwcmVzZW50YXRpb24gc3RhdGUgYW5kIGFyZSBub3Qgc2VyaWFsaXplZC4KCkVhY2ggYWdlbnQgaGFzICRwLHZcaW5cbWF0aGJiIFJeMyQsIHJlc2VydmUgJGVcaW5bMCwxXSQsIG1vZGVsICRtXGluWzAsMV1eNSQsIHByZXZpb3VzIGZlYXR1cmVzLCBoZWxkIGZpZWxkIG9ic2VydmF0aW9uIGFuZCBvYnNlcnZhdGlvbiB0aWNrLCAkQyxELFIsXFBoaSxJJCwgcmVzaWR1YWwgYW5kIGJvdW5kZWQgcG9zaXRpb24gdHJhaWwuIEl0cyBub3JtYWxpemVkIGZlYXR1cmUgdmVjdG9yIGlzCgokJHg9KHBfeC8yNCxcIHBfeS8xMCxcIHBfei8xOCxcIGUsXCB1KHApKS4kJAoKRmllbGQgbG9va3VwIHVzZXMgdGhlIGNvbnRhaW5pbmcgY2VsbCwgY2xhbXBlZCBhdCB0aGUgYm91bmRhcnkuIEdyaWQgaW5kZXhpbmcgaXMgJGo9KHlOX3oreilOX3greCQuCgojIyAyLiBWb2x1bWV0cmljIHNjYWxhciB1cGRhdGUKCkZvciBjZWxsICRqJCwKCiQkdV9qXntuKzF9PVxQaV97WzAsMV19XGxlZnRbdV9qXm4rXERlbHRhIHRcbGVmdChca2FwcGFcc3VtX3tpPTF9XnszfVxmcmFje3Vfe2oraX1ebi0ydV9qXm4rdV97ai1pfV5ufXtoX2leMn0rc19qLTAuMDU1dV9qXm5ccmlnaHQpXHJpZ2h0XS4kJAoKTWlzc2luZyBuZWlnaGJvcnMgcmVwZWF0IHRoZSBib3VuZGFyeSBjZWxsLCBpbXBsZW1lbnRpbmcgemVybyBub3JtYWwgZmx1eC4gQWxsIHVwZGF0ZXMgcmVhZCB0aGUgcHJpb3IgZmllbGQuIFdpdGggdGhlIHNvdXJjZSBvbiwKCiQkc19qPTAuMThcZXhwKC1cfHBfai0oMy41LDIsOSlcfF4yLzcpOyQkCgpvdGhlcndpc2UgJHNfaj0wJC4gSW5pdGlhbCBmaWVsZCBpcyAkMC4wOCswLjU1XGV4cCgtXHxwX2otKDMuNSwyLDkpXHxeMi8yMCkkLiBBIHB1bHNlIGFkZHMgJDAuNzVcZXhwKC1cfHBfai0oMTIsNC41LDkpXHxeMi8xMikkIGFuZCBjbGlwcyB0byAkWzAsMV0kLgoKRm9yICRca2FwcGFcbGUxJCwgJDJcRGVsdGEgdFxrYXBwYVxzdW1faSBoX2leey0yfSswLjA1NVxEZWx0YSB0XGFwcHJveDAuMjU1MzwxJC4gVGh1cyB0aGUgc291cmNlLWZyZWUgc3RlbmNpbCBoYXMgbm9ubmVnYXRpdmUgd2VpZ2h0cyB3aXRoIHRoZSBkZWNsYXJlZCBkZWNheS4gU3VtbWluZyBpdCBjYW5jZWxzIGRpZmZ1c2lvbiBmbHV4ZXMgYWNyb3NzIHRoZSBvdXRlciByZWZsZWN0aW5nIGJvdW5kYXJ5LiBTb3VyY2UgYW5kIHByb2plY3Rpb24gY2FuIGNoYW5nZSB0b3RhbCBmaWVsZC4gU29saWQgYnVpbGRpbmdzIGRvIG5vdCBhbHRlciB0aGUgZmllbGQgc3RlbmNpbDsgdGhpcyBpcyBub3QgYW4gaW1wZXJtZWFibGUtd2FsbCBmaWVsZCBtb2RlbCwgYSBmbHVpZCBzb2x2ZXIgb3IgdGhlIGNhbm9uaWNhbCBFRk1XIHdhdmUgZXF1YXRpb24uCgojIyAzLiBBZ2VudCBtb3ZlbWVudCBhbmQgY29udGFjdHMKCkludGVudGlvbnMgYXJlIHN1cnZleSwgYW5jaG9yLCBleGNoYW5nZSBhbmQgcmVjaGFyZ2UuIFN1cnZleSB1c2VzIHNpeCBkZXRlcm1pbmlzdGljIDNEIHdheXBvaW50cyBwaGFzZWQgYnkgc2ltdWxhdGlvbiB0aWNrLiBBbmNob3IgYXNzaWducyBhZ2VudHMgdG8gc291cmNlLCByZWxheSBhbmQgYXJjaGl2ZTsgZXhjaGFuZ2UgY3ljbGVzIHN0YXRpb24gdGFyZ2V0cyBldmVyeSAyMjAgdGlja3MuIFJlc2VydmUgYmVsb3cgMC4yMiBmb3JjZXMgYSByZWNoYXJnZSB0YXJnZXQuIFBvbGljaWVzIG9ic2VydmUgdGhlaXIgb3duIHJlc2VydmU7IHRoZXkgZG8gbm90IHBlcmZvcm0gZ2VuZXJhbCBsZWFybmVkIHJlYXNvbmluZy4KCkxldCAkZD10LXAkLiBEZXNpcmVkIHNwZWVkIGlzICQxLjhcLFxtYXRocm17Y2xhbXB9KGUvMC4zLDAuMTIsMSlcbWluKDEsXHxkXHwpJC4gRGVzaXJlZCB2ZWxvY2l0eSBwb2ludHMgYWxvbmcgJGQkLCBvciBpcyB6ZXJvIGF0IHRoZSB0YXJnZXQuIEFjY2VsZXJhdGlvbiBiZWZvcmUgbGltaXRpbmcgaXMKCiQkYT0yLjIodl8qIC12KStcbGFtYmRhXFBoaShMXG9kb3QgbV97MTozfS1wKSthX3thdm9pZH0uJCQKCk9ic3RhY2xlIGF2b2lkYW5jZSB1c2VzIHRoZSBzcGhlcmUvQUFCQiBjb250YWN0IG5vcm1hbCBhbmQgJDUkIHRpbWVzIHBlbmV0cmF0aW9uIGludG8gYW4gZXhwYW5kZWQgYm94IG5laWdoYm9yaG9vZCBvZiByYWRpdXMgJDAuMzIrMC45JC4gQWNjZWxlcmF0aW9uIG1hZ25pdHVkZSBpcyBjYXBwZWQgYXQgNSBhbmQgc3BlZWQgYXQgMjoKCiQkdl57bisxfT1cbWF0aHJte2NhcH1fMih2Xm4rXERlbHRhIHRcLFxtYXRocm17Y2FwfV81KGEpKSxccXF1YWQgcF57bisxfT1wXm4rXERlbHRhIHQgdl57bisxfS4kJAoKQm91bmRhcnkgYW5kIGJ1aWxkaW5nIG92ZXJsYXBzIGFyZSBwcm9qZWN0ZWQgb3V0IGZvciBzcGhlcmUgcmFkaXVzIDAuMzIuIElud2FyZCBub3JtYWwgdmVsb2NpdHkgaXMgcmVtb3ZlZC4gRm9yIGNlbnRlcnMgaW5zaWRlIGEgYnVpbGRpbmcsIHRoZSBjbG9zZXN0IGZhY2Ugc3VwcGxpZXMgYSBzZXBhcmF0aW5nIG5vcm1hbC4gVGhlIHR3byBzb2xpZCBheGlzLWFsaWduZWQgYm94ZXMgYXJlICRbNywwLDNdJOKAkyRbMTAsMy4yLDZdJCBhbmQgJFsxNS41LDAsMTJdJOKAkyRbMTguNSw1LDE1XSQuCgpBZ2VudCByZXNlcnZlIGNoYW5nZXMgYXMKCiQkZV57bisxfT1cUGlfe1swLDFdfVtlXm4rXERlbHRhIHQocS0wLjAwMy0wLjAwNVx8dl57bisxfVx8XjIpXSwkJAoKd2hlcmUgJHE9MC4wNzUkIHdpdGhpbiAyLjYgdW5pdHMgb2YgYW4gZW5hYmxlZCBzb3VyY2UsIG90aGVyd2lzZSB6ZXJvLiBUaGVzZSBhcmUgaWxsdXN0cmF0aXZlIHJhdGVzLCBub3QgcGh5c2lvbG9naWNhbCBvciBoYXJkd2FyZSBtZWFzdXJlbWVudHMuIEZseWluZyBhZ2VudHMgdXNlIGFuIGVmZmVjdGl2ZSBjb250cm9sIGxhdyB3aXRoIGdyYXZpdHkgYWxyZWFkeSBjb21wZW5zYXRlZDsgcmVzZXJ2ZSBpcyBhIHNpbXBsaWZpZWQgc2NhbGFyIGFuZCBkb2VzIG5vdCBhY2NvdW50IGZvciBldmVyeSBwaHlzaWNhbCB3b3JrIHRlcm0uCgojIyA0LiBPYnNlcnZhdGlvbnMsIGVzdGltYXRlcyBhbmQgZmVlZGJhY2sKCkV2ZXJ5IGZpZnRoIHRpY2sgYnkgZGVmYXVsdCwgdW5sZXNzIHRoZSBibGFja291dCBjb3VudGVyIGlzIG5vbnplcm8sIGhlbGQgZmllbGQgb2JzZXJ2YXRpb24gYmVjb21lcyAkXFBpX3tbMCwxXX0odShwKStcc2lnbWEoMnItMSkpJCwgd2hlcmUgJHIkIGlzIHRoZSBuZXh0IHNlZWRlZCBQUk5HIHZhbHVlLiBBIGJsYWNrb3V0IGxhc3RzIDgwIHRpY2tzLiBQb3NpdGlvbiBhbmQgcmVzZXJ2ZSBvYnNlcnZhdGlvbnMgcmVtYWluIGF2YWlsYWJsZS4gVGhlIG9ic2VydmF0aW9uIHZlY3RvciBpcyAkeT0oeF8xLHhfMix4XzMseF80LFx0aWxkZSB1KSQuCgpXaXRoICRnPTEtZV57LVxhbHBoYVxEZWx0YSB0fSQsCgokJG1ee24rMX09bV5uK2coeS1tXm4pLFxxdWFkIFxkb3QgbT0obV57bisxfS1tXm4pL1xEZWx0YSB0LFxxdWFkIFxkb3QgeD0oeC14X3twcmV2aW91c30pL1xEZWx0YSB0LiQkCgpMZXQgJFxlcHNpbG9uPXgtbV57bisxfSQsICRcZGVsdGE9XGRvdCB4LVxkb3QgbSQsICRxPShtXm5fMS14XzEsbV5uXzIteF8yLG1ebl8zLXhfMywwLDApJCBhbmQgJFx2YXJlcHNpbG9uPTEwXnstOX0kLiBUaGUgbG9jYWxseSBkZWZpbmVkIGFsaWdubWVudCBzdXJyb2dhdGUgaXMKCiQkUj1cZnJhY3txXGNkb3RcZG90IG19e1x8cVx8XHxcZG90IG1cfCtcdmFyZXBzaWxvbn0sXHF1YWQgRF8rPVx8XGVwc2lsb25cfF4yKzAuMDJcfFxkZWx0YVx8XjIsXHF1YWQgRD1EXystMC4wNlIuJCQKCiQkQz1cUGlfe1swLDFdfVxsZWZ0KDEtXGZyYWN7XHxcZXBzaWxvblx8fXtcfHhcfCtcfG1ee24rMX1cfCtcdmFyZXBzaWxvbn1ccmlnaHQpLiQkCgokJFxQaGlee24rMX09XFBpX3tbMCwxLjVdfVxsZWZ0W1xQaGlebitcZnJhY3tcRGVsdGEgdH17Mn0oMC45XFBoaV5uLTAuOShcUGhpXm4pXjMtMS41XFBoaV5uXHxcZXBzaWxvblx8XjItMC4wMlxQaGleblx8XGRlbHRhXHxeMiswLjFSKVxyaWdodF0uJCQKCiQkSV57bisxfT1JXm4rXERlbHRhIHQgQy4kJAoKJEkkIGFjY3VtdWxhdGVzIHNpbXVsYXRlZCBjb2hlcmVuY2UtdGltZS4gSXQgaXMgbm90IGF1dGhlbnRpY2F0aW9uIG9yIGEgcHJvb2Ygb2YgaWRlbnRpdHkuICRSJCBjb250aW51ZXMgdGhlIGRvY3VtZW50ZWQgdjAuMSBzdXJyb2dhdGU7IGl0IGlzIG5vdCBhbiB1bnJldmlld2VkIGNsYWltIG9mIGVxdWl2YWxlbmNlIHRvIHRoZSBhbWJpZ3VvdXMgSmFjb2JpYW4gZXhwcmVzc2lvbiBpbiB0aGUgaGlzdG9yaWNhbCBzb3VyY2UuICREJCBpcyBzaWduZWQgYW5kIG1heSBiZSBuZWdhdGl2ZS4KCiMjIDUuIEdyYXZpdHkgcHJvYmVzCgpBdCBtb3N0IDI0IGluZGVwZW5kZW50IHByb2JlIHNwaGVyZXMgb2YgcmFkaXVzIDAuMjUgY2FuIGJlIHJlbGVhc2VkLiBSZWxlYXNlIHBvc2l0aW9uIGFuZCBob3Jpem9udGFsIHZlbG9jaXR5IHVzZSBzZWVkZWQgZHJhd3M7IGFsdGl0dWRlIHN0YXJ0cyBhdCA5LiBFYWNoIHRpY2sgc3VidHJhY3RzICQ5LjgxXERlbHRhIHQkIGZyb20gdmVydGljYWwgdmVsb2NpdHksIG11bHRpcGxpZXMgYWxsIHZlbG9jaXR5IGNvbXBvbmVudHMgYnkgMC45OTUsIGFuZCBhZHZhbmNlcyBwb3NpdGlvbiB3aXRoIHRoZSByZXN1bHRpbmcgdmVsb2NpdHkuIENvbnRhY3QgcHJvamVjdGlvbiB1c2VzIHJlc3RpdHV0aW9uIDAuNTU6IGZvciBpbndhcmQgbm9ybWFsIHNwZWVkICR2X248MCQsICR2XGxlZnRhcnJvdyB2LSgxKzAuNTUpdl9uIG4kLiBTbWFsbCBmbG9vciByZWJvdW5kcyBiZWxvdyAwLjYgc3BlZWQgYXJlIHN1cHByZXNzZWQuCgpUaGUgOS44MSB2YWx1ZSBpcyBhIGNob3NlbiBncmF2aXR5IGNvbnN0YW50IGluIHNpbXVsYXRpb24gdW5pdHMuIFRoaXMgZGlzY3JldGUgY29udGFjdCBtb2RlbCBkaXNzaXBhdGVzIGVuZXJneSBhbmQgaXMgbm90IGEgY2FsaWJyYXRlZCBoaWdoLWFjY3VyYWN5IG1lY2hhbmljcyBzb2x2ZXIuIEl0IGhhcyBubyBjb250aW51b3VzIGNvbGxpc2lvbiBkZXRlY3Rpb24sIHByb2JlL3Byb2JlIGludGVyYWN0aW9uLCBwcm9iZS9hZ2VudCBpbnRlcmFjdGlvbiwgYW5ndWxhciBkeW5hbWljcywgZnJpY3Rpb25hbCByaWdpZC1ib2R5IHN0YWNraW5nIG9yIGJhY2tyZWFjdGlvbiBvbiB0aGUgZmllbGQuCgojIyA2LiBSZWN1cnNpdmUgc2VhcmNoIGFuZCBjb3VudGVyZmFjdHVhbHMKClRoZSBwbGFubmVyIGNsb25lcyB0aGUgZnVsbCB3b3JsZCwgZXhwYW5kcyBmb3VyIGludGVudGlvbnMsIHNpbXVsYXRlcyBlYWNoIGZvciAkaCQgdGlja3MgYW5kIHJldGFpbnMgdGhlIGJlc3QgJGIkIGNhbmRpZGF0ZXMuIEl0IHJlcGVhdHMgdG8gZGVwdGggJGQkLiBJdHMgdmlldyBpcyBvbW5pc2NpZW50IHdpdGggcmVzcGVjdCB0byB0aGUgc2ltdWxhdGVkIHN0YXRlOyBpbmRpdmlkdWFsIGFnZW50cyBzdGlsbCBoYXZlIGhlbGQvbm9pc3kgZmllbGQgb2JzZXJ2YXRpb25zLgoKRm9yIG1ldHJpY3MgbWVhbiByZXNlcnZlICRFJCwgbWVhbiBjb2hlcmVuY2UgJEMkLCBtZWFuIHNpZ25lZCBkaXZlcmdlbmNlICREJCwgYW5kIHZvbHVtZSBjb3ZlcmFnZSAkViQsIHN0YWdlIHV0aWxpdHkgaXMKCiQkVT13X0UgRSt3X0MgQyt3X1YoVi1WXzApLXdfRFxtYXgoMCxEKS13X1JcbWF0aGJmMVthPWFfe3ByZXZpb3VzfV0uJCQKCnwgT2JqZWN0aXZlIHwgJHdfRSQgfCAkd19DJCB8ICR3X1YkIHwgJHdfRCQgfCAkd19SJCB8CnwgLS0tIHwgLS0tOiB8IC0tLTogfCAtLS06IHwgLS0tOiB8IC0tLTogfAp8IEJhbGFuY2UgfCAxIHwgMC40NSB8IDMgfCAwLjMgfCAwLjA3IHwKfCBEaXNjb3ZlcnkgfCAwLjQ1IHwgMC4yIHwgOCB8IDAuMiB8IDAuMTAgfAp8IFJlc2lsaWVuY2UgfCAyLjQgfCAwLjY1IHwgMC44IHwgMC42IHwgMC4wMyB8CgpTY29yZXMgc3VtICQwLjleXGVsbCBVX1xlbGwkIGZyb20gbGV2ZWwgemVyby4gVGhlc2UgaW5oZXJpdGVkLCBoYW5kLXNlbGVjdGVkIHdlaWdodHMgZXhwcmVzcyBkZW1vIHByZWZlcmVuY2VzLCBub3QgY2FsaWJyYXRlZCBodW1hbiB1dGlsaXR5IG9yIG9wdGltYWxpdHkuIFRpZXMgcmVzb2x2ZSBieSBnZW5lcmF0aW9uIElELiBUaGUgQVBJIGJvdW5kcyBkZXB0aCAx4oCTNCwgd2lkdGggMeKAkzQsIGFuZCBob3Jpem9uIDHigJM0MCB0aWNrcy4gRXZhbHVhdGVkIGJyYW5jaGVzIHRvdGFsICQ0KzRiKGQtMSkkOyB0aGUgZGVmYXVsdCBpcyAyOCBicmFuY2hlcyBhbmQgNTYwIHNpbXVsYXRlZCB0aWNrcy4gVGhyZWUgZnVsbCBjYW5kaWRhdGUgc2VxdWVuY2VzIGFyZSBzaG93bjsgb25seSB0aGUgc2VsZWN0ZWQgZmlyc3QgaW50ZW50aW9uIGlzIGFwcGxpZWQgdG8gdGhlIGxpdmUgd29ybGQuIENhbmRpZGF0ZSBwYXRocyBhcmUgZ2VuZXJhdGVkIGJ5IGFjdHVhbCByb2xsb3V0cywgbm90IGRyYXduIGZvcmVjYXN0cy4KClRoZSBjb3VudGVyZmFjdHVhbCBjbG9uZXMgdGhlIHNhbWUgcHJlc2VudCB0d2ljZSBhbmQgdG9nZ2xlcyB0aGUgc291cmNlIGluIG9uZSBjbG9uZSwgdGhlbiBzaW11bGF0ZXMgYm90aCA2MCB0aWNrcyBieSBkZWZhdWx0LiBJdCByZXBvcnRzIHRoZWlyIG1ldHJpY3MgYW5kIHRoZSBhbHRlcm5hdGl2ZSBwYXRocywgbGVhdmluZyB0aGUgb3JpZ2luYWwgdW5jaGFuZ2VkLiBJdCBlc3RhYmxpc2hlcyBhIGNvbnNlcXVlbmNlIGluc2lkZSB0aGUgcHJvZ3JhbW1lZCBtb2RlbCwgbm90IGV4dGVybmFsIGNhdXNhbCBldmlkZW5jZS4KCiMjIDcuIFVwZGF0ZSBvcmRlciwgcmVuZGVyaW5nIGFuZCBzdG9yYWdlCgpFYWNoIHRpY2s6IGluY3JlbWVudCB0aWNrIOKGkiB1cGRhdGUgZmllbGQg4oaSIGZvciBlYWNoIGFnZW50IG1vdmUgdGhlbiB1cGRhdGUgZXN0aW1hdGUg4oaSIGFkdmFuY2UvY29udGFjdCBwcm9iZXMg4oaSIGRlY3JlbWVudCBibGFja291dCDihpIgcmVjb3JkIG1ldHJpY3MgZXZlcnkgZmlmdGggdGljay4gVGhpcyBvcmRlciBpcyBwYXJ0IG9mIHRoZSBtb2RlbC4KClRoZSBVSSBhY2N1bXVsYXRlcyB3YWxsIHRpbWUgYW5kIGFkdmFuY2VzIGZpeGVkIHRpY2tzOyBjYW1lcmEgcmVuZGVyaW5nIG5ldmVyIHN1cHBsaWVzIHJhbmRvbW5lc3Mgb3IgbW9kaWZpZXMgd29ybGQgZHluYW1pY3MuIExvbmcgYnJvd3NlciBzdGFsbHMgYXJlIGNhcHBlZCByYXRoZXIgdGhhbiByZXBsYXllZCBhcyBhbiB1bmJvdW5kZWQgY2F0Y2gtdXAsIGFuZCBoaWRkZW4gZG9jdW1lbnRzIHBhdXNlLiDigJwxw5figJ0gYWltcyBhdCB0ZW4gdGlja3MgcGVyIHdhbGwgc2Vjb25kIGJ1dCBjYW4gcnVuIHNsb3dlciBvbiBhIGNvbnN0cmFpbmVkIGRldmljZS4gVGhlIGZpZWxkIHZvbHVtZSBkaXNwbGF5IHBsYWNlcyBzbWFsbCBnbHlwaHMgYXQgdHJ1ZSBjZWxsIGNlbnRlcnMsIG9yIHNob3dzIG9uZSBzZWxlY3RlZCBoZWlnaHQgbGF5ZXIuIFRoZSBidWlsZGluZ3MsIGFnZW50cyBhbmQgcHJvYmVzIGFyZSBwZXJzcGVjdGl2ZS1wcm9qZWN0ZWQgM0QgZ2VvbWV0cnkgd2l0aCBhIGRlcHRoIGJ1ZmZlci4gRmllbGQgZ2x5cGggc2l6ZS9jb2xvciwgbGFiZWxzIGFuZCBjYW1lcmEgY29udHJvbHMgYXJlIHZpc3VhbGl6YXRpb24gY2hvaWNlcy4KClNuYXBzaG90cyBwcmVzZXJ2ZSB3b3JsZCBhbmQgUFJORyBzdGF0ZS4gVXAgdG8gMzIgY2hlY2twb2ludHMgZm9ybSBhIHBhcmVudC1saW5rZWQgREFHLiBPbGRlc3Qtbm9kZSBwcnVuaW5nIHJlLXJvb3RzIHN1cnZpdmluZyBjaGlsZHJlbi4gSW1wb3J0cyB2YWxpZGF0ZSBmaW5pdGUgdmFsdWVzLCBkaW1lbnNpb25zLCBib3VuZGVkIGFycmF5cywgaWRlbnRpdGllcywgYm9keSBwb3NpdGlvbnMsIHBhcmVudCBvcmRlciBhbmQgZm9ybWF0OyB0aGUgdGV4dCBsaW1pdCBpcyAxMiBNQi4gSW52YWxpZCBpbXBvcnRzIGFyZSByZWplY3RlZCBiZWZvcmUgcmVwbGFjaW5nIGN1cnJlbnQgc3RhdGUuIExlZ2FjeSAyRCBzYXZlcyBhcmUgZGVsaWJlcmF0ZWx5IG5vdCBpbnRlcnByZXRlZCBhcyAzRCBzYXZlcy4gRk5WLWJhc2VkIGNoZWNrc3VtcyBhcmUgcmVwbGF5IGxhYmVscywgbm90IGNyeXB0b2dyYXBoaWMgYXV0aGVudGljYXRpb24uCgojIyA4LiBDbGFpbXMgYW5kIHJlbWFpbmluZyB3b3JrCgpUaGlzIGltcGxlbWVudHMgdGhlIGVxdWF0aW9ucyBhbmQgcnVsZXMgYWJvdmUgYW5kIHRlc3RzIHNlbGVjdGVkIGludmFyaWFudHMuIE5vIGZ1bGwgTW9ub2xpdGhpYyAxMDIvMTY1IGltcGxlbWVudGF0aW9uLCBjYW5vbmljYWwgWm9vIHBhc3MsIGdlbmVyYWwtd29ybGQgc2ltdWxhdG9yLCBjb25zY2lvdXNuZXNzL0FHSSBjbGFpbSwgcXVhbnR1bSBncmF2aXR5IHNvbHZlciBvciBodW1hbi1saWZlIGZvcmVjYXN0IGZvbGxvd3MgZnJvbSBpdC4gRnV0dXJlIG1vZHVsZXMgcmVxdWlyZSBleHBsaWNpdCBzeW1ib2xzLCB1bml0cywgYXBwcm94aW1hdGlvbiBjaG9pY2VzLCBzb3VyY2UtdG8tY29kZSBtYXBwaW5nIGFuZCBzZXBhcmF0ZSB2YWxpZGF0aW9uLgoKUmVuZGVyaW5nIHVzZXMgdGhlIFtLaHJvbm9zIFdlYkdMIDEuMCBzcGVjaWZpY2F0aW9uXShodHRwczovL3JlZ2lzdHJ5Lmtocm9ub3Mub3JnL3dlYmdsL3NwZWNzLzEuMC8pIGZvciBjYW52YXMgZHJhd2luZywgdmlld3BvcnQgc2l6aW5nLCBkZXB0aCB0ZXN0aW5nIGFuZCBjb250ZXh0IHJlY292ZXJ5LiBObyB0aGlyZC1wYXJ0eSByZW5kZXJpbmcgc291cmNlIGlzIGJ1bmRsZWQuCg==" download="Archimedes-World3D-Mathematics.md">Mathematics & evidence boundary ↗</a></details>
+    </aside>
+  </main>
+  <dialog id="guide" aria-labelledby="guide-title"><form method="dialog"><button class="dialog-close" aria-label="Close guide">×</button></form><p class="eyebrow">WELCOME TO THE STATION</p><h2 id="guide-title">Your first experiment.</h2><ol><li><b>Run world.</b> Watch three agents move through a 3D scalar field.</li><li><b>Blind sensors.</b> Compare actual and estimated positions and field readings while observations are held.</li><li><b>Explore futures.</b> The world pauses. Select a candidate to preview its path, then apply its first intention.</li><li><b>Restore a checkpoint.</b> Change the intervention to form a different branch.</li><li><b>Drop a probe.</b> Observe gravity and contact with the station floor.</li></ol><p><b>Orbit:</b> drag; wheel or pinch to zoom; Shift-drag to pan. <b>Enter world:</b> drag to look; W/A/S/D to move; Q/E to descend/ascend. Focus the world first. <b>Space:</b> play/pause.</p><p>Export a JSON session to preserve exact state, random seed and branch history. This app runs locally and sends no session data.</p><form method="dialog"><button class="primary">Enter the laboratory</button></form></dialog>
+  <noscript><p class="graphics-error">Enable JavaScript to run this local simulation.</p></noscript>
+<script>/* Archimedes World 3D 0.2.0 — deterministic, fixed-step volumetric laboratory. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.Archimedes3D = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const VERSION = '0.2.0', DT = 0.1, SIZE = [24, 10, 18], GRID = [16, 6, 12];
+  const CELLS = GRID.reduce((a, b) => a * b), EPS = 1e-9, RADIUS = 0.32;
+  const ACTIONS = ['survey', 'anchor', 'exchange', 'recharge'];
+  const GOALS = ['balance', 'discovery', 'resilience'];
+  const NAMES = ['ADA', 'NOETHER', 'HYPATIA'];
+  const DEFAULTS = {coupling: 0.8, learning: 1.8, diffusion: 0.65, noise: 0.025, sensorEvery: 5};
+  const STATIONS = [
+    {id: 'source', name: 'Source', p: [3.5, 2, 9]},
+    {id: 'relay', name: 'Relay', p: [12, 4.5, 9]},
+    {id: 'archive', name: 'Archive', p: [20.5, 7.5, 9]}
+  ];
+  const OBSTACLES = [
+    {id: 'habitat', min: [7, 0, 3], max: [10, 3.2, 6]},
+    {id: 'observatory', min: [15.5, 0, 12], max: [18.5, 5, 15]}
+  ];
+  const WEIGHTS = {balance: [1, 0.45, 3, 0.3, 0.07], discovery: [0.45, 0.2, 8, 0.2, 0.10], resilience: [2.4, 0.65, 0.8, 0.6, 0.03]};
+  const clamp = (n, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, n));
+  const norm = v => Math.hypot(...v), sub = (a, b) => a.map((n, i) => n - b[i]);
+  const clone = x => JSON.parse(JSON.stringify(x));
+  const assert = (v, message) => { if (!v) throw new Error(message); };
+  function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); return h >>> 0; }
+  const checksum = x => hash(JSON.stringify(x)).toString(16).padStart(8, '0');
+  function random(w) { let x = w.rng; x ^= x << 13; x ^= x >>> 17; x ^= x << 5; w.rng = x >>> 0; return w.rng / 4294967296; }
+  const index = (x, y, z) => (y * GRID[2] + z) * GRID[0] + x;
+  const cellPosition = (x, y, z) => [x, y, z].map((n, i) => (n + 0.5) * SIZE[i] / GRID[i]);
+  function cell(p) { const c = p.map((v, i) => clamp(Math.floor(v * GRID[i] / SIZE[i]), 0, GRID[i] - 1)); return index(...c); }
+  const sample = (w, p) => w.field[cell(p)];
+  const features = (w, a) => [...a.p.map((n, i) => n / SIZE[i]), a.energy, sample(w, a.p)];
+  function parameters(overrides = {}) {
+    assert(overrides && typeof overrides === 'object' && !Array.isArray(overrides), 'Parameters must be an object.');
+    const p = {...DEFAULTS}, limits = {coupling: [0, 2], learning: [0.1, 5], diffusion: [0, 1], noise: [0, 0.15], sensorEvery: [1, 20]};
+    for (const [k, v] of Object.entries(overrides)) {
+      assert(limits[k] && Number.isFinite(v) && v >= limits[k][0] && v <= limits[k][1], `Invalid parameter: ${k}`);
+      if (k === 'sensorEvery') assert(Number.isInteger(v), 'Sensor interval must be an integer.');
+      p[k] = v;
+    }
+    return p;
+  }
+  function log(w, kind, text) { w.events.push({tick: w.tick, kind, text}); if (w.events.length > 48) w.events.shift(); }
+  function createWorld(seed = 'ARCHIMEDES-3D-001', overrides = {}) {
+    assert(typeof seed === 'string' && seed.length > 0 && seed.length <= 80, 'Seed must contain 1–80 characters.');
+    const w = {version: VERSION, seed, rng: hash(seed) || 1, tick: 0, params: parameters(overrides),
+      action: 'survey', goal: 'balance', sourceOn: true, blackout: 0, field: [], visited: Array(CELLS).fill(0),
+      agents: [], probes: [], nextProbe: 1, events: [], traces: [], collisions: 0, fieldClips: 0};
+    for (let y = 0; y < GRID[1]; y++) for (let z = 0; z < GRID[2]; z++) for (let x = 0; x < GRID[0]; x++) {
+      w.field.push(0.08 + 0.55 * Math.exp(-(norm(sub(cellPosition(x, y, z), STATIONS[0].p)) ** 2) / 20));
+    }
+    NAMES.forEach((name, id) => {
+      const a = {id, name, p: [4.8 + id * 0.5, 2 + id * 1.8, 5.5 + id * 3 + (random(w) - 0.5) * 0.3], v: [0, 0, 0],
+        energy: 0.82, m: [], previous: [], sensed: 0, lastSeen: 0, C: 1, D: 0, R: 0, phi: 0.8, I: 0, residual: 0, trail: []};
+      a.m = features(w, a); a.previous = a.m.slice(); a.sensed = a.m[4]; w.agents.push(a); w.visited[cell(a.p)] = 1;
+    });
+    log(w, 'origin', 'Station initialized. Three agents; three spatial dimensions.');
+    w.traces.push(metrics(w)); return w;
+  }
+  function target(w, a) {
+    if (a.energy < 0.22 || w.action === 'recharge') return [3.5, 1.5 + a.id * 0.7, 8 + a.id];
+    if (w.action === 'anchor') return STATIONS[a.id].p.slice();
+    if (w.action === 'exchange') return STATIONS[(a.id + 1 + Math.floor(w.tick / 220)) % 3].p.slice();
+    const points = [[21, 2, 3], [21, 8, 15], [4, 6, 15], [4, 2, 3], [12, 8, 4], [12, 6.5, 14]];
+    return points[(Math.floor(w.tick / 160) + a.id * 2) % points.length].slice();
+  }
+  function updateField(w) {
+    const next = Array(CELLS), spacing = SIZE.map((s, i) => s / GRID[i]);
+    for (let y = 0; y < GRID[1]; y++) for (let z = 0; z < GRID[2]; z++) for (let x = 0; x < GRID[0]; x++) {
+      const j = index(x, y, z), u = w.field[j];
+      const lap = (w.field[index(Math.max(0, x - 1), y, z)] + w.field[index(Math.min(GRID[0] - 1, x + 1), y, z)] - 2 * u) / spacing[0] ** 2
+        + (w.field[index(x, Math.max(0, y - 1), z)] + w.field[index(x, Math.min(GRID[1] - 1, y + 1), z)] - 2 * u) / spacing[1] ** 2
+        + (w.field[index(x, y, Math.max(0, z - 1))] + w.field[index(x, y, Math.min(GRID[2] - 1, z + 1))] - 2 * u) / spacing[2] ** 2;
+      const source = w.sourceOn ? 0.18 * Math.exp(-(norm(sub(cellPosition(x, y, z), STATIONS[0].p)) ** 2) / 7) : 0;
+      const raw = u + DT * (w.params.diffusion * lap + source - 0.055 * u);
+      next[j] = clamp(raw); if (next[j] !== raw) w.fieldClips++;
+    }
+    w.field = next;
+  }
+  function contact(p, box, radius) {
+    const q = p.map((n, i) => clamp(n, box.min[i], box.max[i]));
+    const d = sub(p, q), length = norm(d);
+    if (length >= radius) return null;
+    if (length > EPS) return {normal: d.map(n => n / length), penetration: radius - length};
+    let best = Infinity, axis = 0, direction = -1;
+    for (let i = 0; i < 3; i++) {
+      if (p[i] - box.min[i] < best) { best = p[i] - box.min[i]; axis = i; direction = -1; }
+      if (box.max[i] - p[i] < best) { best = box.max[i] - p[i]; axis = i; direction = 1; }
+    }
+    const normal = [0, 0, 0]; normal[axis] = direction;
+    return {normal, penetration: radius + best};
+  }
+  function collide(w, body, radius, restitution) {
+    for (let i = 0; i < 3; i++) {
+      if (body.p[i] < radius || body.p[i] > SIZE[i] - radius) {
+        const n = body.p[i] < radius ? 1 : -1;
+        body.p[i] = clamp(body.p[i], radius, SIZE[i] - radius);
+        if (body.v[i] * n < 0) body.v[i] *= -restitution;
+        w.collisions++;
+      }
+    }
+    for (const box of OBSTACLES) {
+      const c = contact(body.p, box, radius); if (!c) continue;
+      body.p = body.p.map((v, i) => v + c.normal[i] * (c.penetration + 1e-8));
+      const vn = body.v.reduce((s, v, i) => s + v * c.normal[i], 0);
+      if (vn < 0) body.v = body.v.map((v, i) => v - (1 + restitution) * vn * c.normal[i]);
+      w.collisions++;
+    }
+  }
+  function move(w, a) {
+    const gap = sub(target(w, a), a.p), length = norm(gap), speed = 1.8 * clamp(a.energy / 0.3, 0.12, 1) * Math.min(1, length);
+    let acc = a.p.map((p, i) => 2.2 * ((length > EPS ? speed * gap[i] / length : 0) - a.v[i]) + w.params.coupling * a.phi * (SIZE[i] * a.m[i] - p));
+    for (const box of OBSTACLES) {
+      const c = contact(a.p, box, RADIUS + 0.9);
+      if (c) acc = acc.map((v, i) => v + 5 * c.penetration * c.normal[i]);
+    }
+    const an = norm(acc); if (an > 5) acc = acc.map(v => v * 5 / an);
+    a.v = a.v.map((v, i) => v + DT * acc[i]);
+    const vn = norm(a.v); if (vn > 2) a.v = a.v.map(v => v * 2 / vn);
+    a.p = a.p.map((p, i) => p + DT * a.v[i]); collide(w, a, RADIUS, 0);
+    const charge = w.sourceOn && norm(sub(a.p, STATIONS[0].p)) < 2.6 ? 0.075 : 0;
+    a.energy = clamp(a.energy + DT * (charge - 0.003 - 0.005 * norm(a.v) ** 2));
+    a.trail.push(a.p.slice()); if (a.trail.length > 90) a.trail.shift(); w.visited[cell(a.p)] = 1;
+  }
+  function updateModel(w, a) {
+    const x = features(w, a), old = a.m.slice();
+    if (!w.blackout && w.tick % w.params.sensorEvery === 0) { a.sensed = clamp(x[4] + w.params.noise * (2 * random(w) - 1)); a.lastSeen = w.tick; }
+    const observed = [...x.slice(0, 4), a.sensed], gain = 1 - Math.exp(-w.params.learning * DT);
+    a.m = old.map((v, i) => v + gain * (observed[i] - v));
+    const dm = a.m.map((v, i) => (v - old[i]) / DT), dx = x.map((v, i) => (v - a.previous[i]) / DT);
+    const gap = sub(x, a.m), delta = sub(dx, dm), g = [old[0] - x[0], old[1] - x[1], old[2] - x[2], 0, 0];
+    a.R = g.reduce((s, v, i) => s + v * dm[i], 0) / (norm(g) * norm(dm) + EPS);
+    a.residual = norm(gap) ** 2 + 0.02 * norm(delta) ** 2; a.D = a.residual - 0.06 * a.R;
+    a.C = clamp(1 - norm(gap) / (norm(x) + norm(a.m) + EPS));
+    a.phi = clamp(a.phi + DT / 2 * (0.9 * a.phi - 0.9 * a.phi ** 3 - 1.5 * a.phi * norm(gap) ** 2 - 0.02 * a.phi * norm(delta) ** 2 + 0.1 * a.R), 0, 1.5);
+    a.I += DT * a.C; a.previous = x;
+  }
+  function metrics(w) {
+    const mean = key => w.agents.reduce((s, a) => s + a[key], 0) / w.agents.length;
+    const m = {tick: w.tick, time: w.tick * DT, C: mean('C'), D: mean('D'), phi: mean('phi'), energy: mean('energy'), coverage: w.visited.reduce((a, b) => a + b) / CELLS};
+    m.regime = m.energy < 0.25 ? 'depleted' : w.blackout ? 'occluded' : m.C < 0.92 ? 'divergent' : 'tracking';
+    return m;
+  }
+  function step(input, ticks = 1) {
+    assert(Number.isInteger(ticks) && ticks >= 0 && ticks <= 10000, 'Ticks must be an integer from 0 to 10000.');
+    const w = clone(input);
+    for (let t = 0; t < ticks; t++) {
+      w.tick++; updateField(w);
+      for (const a of w.agents) { move(w, a); updateModel(w, a); }
+      for (const b of w.probes) {
+        b.v[1] -= 9.81 * DT; b.v = b.v.map(v => v * 0.995); b.p = b.p.map((p, i) => p + DT * b.v[i]);
+        collide(w, b, 0.25, 0.55);
+        if (b.p[1] <= 0.251 && Math.abs(b.v[1]) < 0.6) b.v[1] = 0;
+      }
+      if (w.blackout) w.blackout--;
+      if (w.tick % 5 === 0) { w.traces.push(metrics(w)); if (w.traces.length > 120) w.traces.shift(); }
+    }
+    return w;
+  }
+  function setAction(input, action) { assert(ACTIONS.includes(action), 'Unknown intention.'); const w = clone(input); w.action = action; log(w, 'intention', `Intention: ${action}.`); return w; }
+  function setGoal(input, goal) { assert(GOALS.includes(goal), 'Unknown objective.'); const w = clone(input); w.goal = goal; return w; }
+  function setParameters(input, values) { const w = clone(input); w.params = parameters({...w.params, ...values}); return w; }
+  function intervene(input, kind) {
+    assert(['pulse', 'blackout', 'source', 'reset-model', 'probe', 'clear-probes'].includes(kind), 'Unknown intervention.');
+    const w = clone(input);
+    if (kind === 'pulse') for (let y = 0; y < GRID[1]; y++) for (let z = 0; z < GRID[2]; z++) for (let x = 0; x < GRID[0]; x++) {
+      const j = index(x, y, z); w.field[j] = clamp(w.field[j] + 0.75 * Math.exp(-(norm(sub(cellPosition(x, y, z), STATIONS[1].p)) ** 2) / 12));
+    }
+    if (kind === 'blackout') w.blackout = 80;
+    if (kind === 'source') w.sourceOn = !w.sourceOn;
+    if (kind === 'reset-model') for (const a of w.agents) a.m = [0.5, 0.5, 0.5, 0.5, 0.5];
+    if (kind === 'probe') {
+      assert(w.probes.length < 24, '24 probes are already present. Clear probes before adding more.');
+      w.probes.push({id: w.nextProbe++, p: [11 + random(w) * 2, 9, 8 + random(w) * 2], v: [(random(w) - 0.5) * 3, 0, (random(w) - 0.5) * 3]});
+    }
+    if (kind === 'clear-probes') w.probes = [];
+    log(w, 'intervention', {pulse: 'Volumetric field pulse at relay.', blackout: 'Field sensors occluded for 8 seconds.', source: `Source ${w.sourceOn ? 'enabled' : 'disabled'}.`, 'reset-model': 'Agent estimates reset.', probe: 'Gravity probe released.', 'clear-probes': 'Gravity probes cleared.'}[kind]);
+    return w;
+  }
+  function plan(input, options = {}) {
+    const depth = options.depth ?? 3, width = options.width ?? 3, horizon = options.horizon ?? 20;
+    assert(Number.isInteger(depth) && depth >= 1 && depth <= 4, 'Depth must be 1–4.');
+    assert(Number.isInteger(width) && width >= 1 && width <= 4, 'Width must be 1–4.');
+    assert(Number.isInteger(horizon) && horizon >= 1 && horizon <= 40, 'Horizon must be 1–40.');
+    const origin = metrics(input).coverage, nodes = [];
+    let beam = [{world: clone(input), sequence: [], score: 0, path: [], trails: input.agents.map(a => [a.p.slice()])}];
+    for (let level = 0; level < depth; level++) {
+      const candidates = [];
+      for (const parent of beam) for (const action of ACTIONS) {
+        const w = step(setAction(parent.world, action), horizon), m = metrics(w), weight = WEIGHTS[w.goal];
+        const utility = weight[0] * m.energy + weight[1] * m.C + weight[2] * (m.coverage - origin) - weight[3] * Math.max(0, m.D) - weight[4] * Number(action === parent.world.action);
+        const score = parent.score + 0.9 ** level * utility, id = nodes.length + 1;
+        const node = {id, parent: parent.path.at(-1) ?? 0, level: level + 1, action, score, metrics: m};
+        nodes.push(node);
+        candidates.push({world: w, sequence: [...parent.sequence, action], score, path: [...parent.path, id],
+          trails: parent.trails.map((tr, i) => [...tr, ...w.agents[i].trail.slice(-horizon)])});
+      }
+      candidates.sort((a, b) => b.score - a.score || a.path.at(-1) - b.path.at(-1)); beam = candidates.slice(0, width);
+    }
+    return {origin: checksum(input), originTick: input.tick, evaluated: nodes.length, simulatedTicks: nodes.length * horizon,
+      depth, width, horizon, nodes, candidates: beam.map(b => ({sequence: b.sequence, score: b.score, metrics: metrics(b.world), trails: b.trails}))};
+  }
+  function counterfactual(input, ticks = 60) {
+    assert(Number.isInteger(ticks) && ticks > 0 && ticks <= 100, 'Counterfactual ticks must be 1–100.');
+    const factual = step(input, ticks), alternate = step(intervene(input, 'source'), ticks);
+    return {origin: checksum(input), ticks, factual: metrics(factual), alternate: metrics(alternate),
+      trails: alternate.agents.map(a => a.trail.slice(-ticks)), sourceOn: alternate.sourceOn};
+  }
+  function createSession(seed, p) { const world = createWorld(seed, p); return {world, cursor: 0, nextId: 1, history: [{id: 0, parent: null, label: 'Origin', world: clone(world)}]}; }
+  function checkpoint(session, label = 'Checkpoint') {
+    assert(typeof label === 'string' && label.length > 0 && label.length <= 100, 'Checkpoint label must contain 1–100 characters.');
+    const s = clone(session), id = s.nextId++; s.history.push({id, parent: s.cursor, label, world: clone(s.world)}); s.cursor = id;
+    if (s.history.length > 32) { s.history.shift(); const ids = new Set(s.history.map(n => n.id)); for (const n of s.history) if (!ids.has(n.parent)) n.parent = null; }
+    return s;
+  }
+  function restore(session, id) { const s = clone(session), n = s.history.find(n => n.id === id); assert(n, 'Checkpoint not found.'); s.world = clone(n.world); s.cursor = id; return s; }
+  function validateWorld(w) {
+    const num = (n, a, b, name) => assert(Number.isFinite(n) && n >= a && n <= b, `Invalid ${name}.`);
+    const vec = (v, length, a, b, name) => { assert(Array.isArray(v) && v.length === length, `Invalid ${name}.`); v.forEach(n => num(n, a, b, name)); };
+    const integer = (n, a, b, name) => { num(n, a, b, name); assert(Number.isInteger(n), `Invalid ${name}.`); };
+    const position = (p, radius) => { vec(p, 3, 0, 24, 'position'); p.forEach((n, i) => num(n, radius, SIZE[i] - radius, 'position')); for (const b of OBSTACLES) { const c = contact(p, b, radius); assert(!c || c.penetration < 1e-7, 'Body inside solid geometry.'); } };
+    assert(w && w.version === VERSION, 'Unsupported 3D world version.');
+    assert(typeof w.seed === 'string' && w.seed.length > 0 && w.seed.length <= 80, 'Invalid seed.');
+    integer(w.tick, 0, 1e9, 'tick'); integer(w.rng, 1, 4294967295, 'random state');
+    assert(w.params && Object.keys(w.params).sort().join() === Object.keys(DEFAULTS).sort().join(), 'Incomplete parameters.'); parameters(w.params);
+    assert(ACTIONS.includes(w.action) && GOALS.includes(w.goal), 'Invalid action or objective.');
+    assert(typeof w.sourceOn === 'boolean', 'Invalid source state.'); integer(w.blackout, 0, 80, 'blackout');
+    vec(w.field, CELLS, 0, 1, 'field'); vec(w.visited, CELLS, 0, 1, 'visited'); assert(w.visited.every(v => v === 0 || v === 1), 'Invalid coverage.');
+    assert(Array.isArray(w.agents) && w.agents.length === 3, 'Three agents required.');
+    w.agents.forEach((a, i) => {
+      assert(a.id === i && a.name === NAMES[i], 'Invalid agent identity.'); position(a.p, RADIUS); vec(a.v, 3, -2, 2, 'velocity');
+      assert(norm(a.v) <= 2 + 1e-7, 'Excess agent speed.');
+      for (const k of ['energy', 'C', 'sensed']) num(a[k], 0, 1, k);
+      for (const k of ['m', 'previous']) vec(a[k], 5, 0, 1, k);
+      num(a.phi, 0, 1.5, 'phi'); num(a.D, -1, 100, 'D'); num(a.R, -1, 1, 'R'); num(a.I, 0, 1e9, 'I'); num(a.residual, 0, 100, 'residual'); integer(a.lastSeen, 0, w.tick, 'observation tick');
+      assert(Array.isArray(a.trail) && a.trail.length <= 90, 'Invalid trail.'); a.trail.forEach(p => { vec(p, 3, 0, 24, 'trail'); p.forEach((n, j) => num(n, 0, SIZE[j], 'trail')); });
+    });
+    assert(Array.isArray(w.probes) && w.probes.length <= 24, 'Invalid probes.'); integer(w.nextProbe, 1, 1e9, 'probe sequence');
+    const ids = new Set(); for (const b of w.probes) { integer(b.id, 1, w.nextProbe - 1, 'probe id'); assert(!ids.has(b.id), 'Duplicate probe id.'); ids.add(b.id); position(b.p, 0.25); vec(b.v, 3, -40, 40, 'probe velocity'); }
+    integer(w.collisions, 0, 1e12, 'collisions'); integer(w.fieldClips, 0, 1e12, 'field clips');
+    assert(Array.isArray(w.events) && w.events.length <= 48, 'Invalid events.');
+    for (const e of w.events) { integer(e.tick, 0, w.tick, 'event tick'); assert(typeof e.kind === 'string' && e.kind.length <= 40 && typeof e.text === 'string' && e.text.length <= 240, 'Invalid event.'); }
+    assert(Array.isArray(w.traces) && w.traces.length <= 120, 'Invalid traces.');
+    for (const t of w.traces) { integer(t.tick, 0, w.tick, 'trace tick'); num(t.time, 0, w.tick * DT, 'trace time'); for (const k of ['C', 'energy', 'coverage']) num(t[k], 0, 1, k); num(t.D, -1, 100, 'trace D'); num(t.phi, 0, 1.5, 'trace phi'); assert(['depleted', 'occluded', 'divergent', 'tracking'].includes(t.regime), 'Invalid regime.'); }
+    return true;
+  }
+  function exportSession(s) { return JSON.stringify({format: 'archimedes-world3d', version: VERSION, session: s}); }
+  function importSession(text) {
+    assert(typeof text === 'string' && text.length <= 12_000_000, 'Import exceeds 12 MB.'); const data = JSON.parse(text);
+    function inspect(v, depth = 0) {
+      assert(depth < 20, 'Excessive nesting.');
+      if (typeof v === 'number') assert(Number.isFinite(v), 'Non-finite number.');
+      else if (typeof v === 'string') assert(v.length <= 1000, 'Oversized string.');
+      else if (Array.isArray(v)) { assert(v.length <= 1200, 'Oversized array.'); v.forEach(x => inspect(x, depth + 1)); }
+      else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { assert(!['__proto__', 'prototype', 'constructor'].includes(k), 'Forbidden property.'); inspect(x, depth + 1); }
+      else assert(v === null || typeof v === 'boolean', 'Unsupported value.');
+    }
+    inspect(data); assert(data.format === 'archimedes-world3d' && data.version === VERSION, 'Use a 3D v0.2.0 session. Legacy 2D sessions use the original laboratory.');
+    const s = data.session; assert(s && Array.isArray(s.history) && s.history.length > 0 && s.history.length <= 32, 'Invalid history.'); validateWorld(s.world);
+    const ids = new Set(); for (const n of s.history) { assert(Number.isInteger(n.id) && n.id >= 0 && !ids.has(n.id), 'Invalid checkpoint id.'); assert(n.parent === null || ids.has(n.parent), 'Invalid history parent.'); assert(typeof n.label === 'string' && n.label.length > 0 && n.label.length <= 100, 'Invalid label.'); validateWorld(n.world); ids.add(n.id); }
+    assert(ids.has(s.cursor) && Number.isInteger(s.nextId) && s.nextId > Math.max(...ids), 'Invalid history cursor.'); return clone(s);
+  }
+  return {VERSION, DT, SIZE, GRID, CELLS, RADIUS, ACTIONS, GOALS, NAMES, DEFAULTS, STATIONS, OBSTACLES, WEIGHTS,
+    clone, checksum, cell, cellPosition, index, sample, parameters, createWorld, createSession, target, metrics, step, setAction, setGoal, setParameters,
+    intervene, plan, counterfactual, checkpoint, restore, validateWorld, exportSession, importSession, contact};
+});
+</script><script>/* Original WebGL renderer. No network, packages or external assets. */
+(function(root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.ArchimedesView = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+  'use strict';
+  const COLORS = [[0.77, 0.97, 0.46], [0.34, 0.82, 0.94], [1, 0.64, 0.38]];
+  const add = (a,b) => a.map((v,i)=>v+b[i]), sub=(a,b)=>a.map((v,i)=>v-b[i]);
+  const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  const unit=a=>{const n=Math.hypot(...a)||1;return a.map(v=>v/n);};
+  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+  function multiply(a,b) { const o=Array(16).fill(0); for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k]; return o; }
+  function perspective(fov,aspect,near,far) { const f=1/Math.tan(fov/2);return [f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0]; }
+  function lookAt(eye,target) {
+    const z=unit(sub(eye,target)), x=unit(cross([0,1,0],z)), y=cross(z,x), dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
+    return [x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,eye),-dot(y,eye),-dot(z,eye),1];
+  }
+  function project(p,m,width,height) {
+    const v=[...p,1], q=[0,0,0,0];for(let r=0;r<4;r++)for(let k=0;k<4;k++)q[r]+=m[k*4+r]*v[k];
+    if(q[3]<=0)return null;const n=q.slice(0,3).map(v=>v/q[3]);
+    if(n[2]<-1||n[2]>1)return null;return {x:(n[0]+1)*width/2,y:(1-n[1])*height/2,visible:Math.abs(n[0])<=1&&Math.abs(n[1])<=1};
+  }
+  class Geometry {
+    constructor(){this.tri=[];this.lines=[];}
+    triangle(a,b,c,color){const n=unit(cross(sub(b,a),sub(c,a)));for(const p of[a,b,c])this.tri.push(...p,...n,...color);}
+    quad(a,b,c,d,color){this.triangle(a,b,c,color);this.triangle(a,c,d,color);}
+    line(a,b,color){for(const p of[a,b])this.lines.push(...p,0,1,0,...color);}
+    box(p,size,color){
+      const v=[];for(let i=0;i<8;i++)v.push(p.map((n,j)=>n+size[j]/2*((i>>j)&1?1:-1)));
+      for(const q of [[0,4,6,2],[1,3,7,5],[0,1,5,4],[2,6,7,3],[0,2,3,1],[4,5,7,6]])this.quad(...q.map(i=>v[i]),color);
+    }
+    octa(p,r,color,stretch=1){const v=[[r,0,0],[-r,0,0],[0,r*stretch,0],[0,-r*stretch,0],[0,0,r],[0,0,-r]].map(v=>add(v,p));for(const f of[[0,2,4],[4,2,1],[1,2,5],[5,2,0],[0,4,3],[4,1,3],[1,5,3],[5,0,3]])this.triangle(...f.map(i=>v[i]),color);}
+    cylinder(p,r,height,color,segments=16){
+      const lo=[p[0],p[1]-height/2,p[2]],hi=[p[0],p[1]+height/2,p[2]];
+      for(let i=0;i<segments;i++){const a=i/segments*Math.PI*2,b=(i+1)/segments*Math.PI*2;
+        const al=add(lo,[r*Math.cos(a),0,r*Math.sin(a)]),bl=add(lo,[r*Math.cos(b),0,r*Math.sin(b)]),ah=add(al,[0,height,0]),bh=add(bl,[0,height,0]);
+        this.quad(al,ah,bh,bl,color);this.triangle(hi,bh,ah,color);this.triangle(lo,al,bl,color);}
+    }
+    ring(p,r,color,segments=48){for(let i=0;i<segments;i++){const a=i/segments*Math.PI*2,b=(i+1)/segments*Math.PI*2;this.line(add(p,[r*Math.cos(a),0,r*Math.sin(a)]),add(p,[r*Math.cos(b),0,r*Math.sin(b)]),color);}}
+  }
+  function staticScene(A){
+    const g=new Geometry();
+    g.box([12,-0.48,9],[25,0.9,19],[0.085,0.125,0.165]);
+    g.box([12,-0.96,9],[22.5,0.15,16.5],[0.045,0.075,0.105]);
+    for(let x=0;x<=24;x++)g.line([x,0.005,0],[x,0.005,18],x%4===0?[0.17,0.24,0.29]:[0.105,0.155,0.20]);
+    for(let z=0;z<=18;z++)g.line([0,0.005,z],[24,0.005,z],z%3===0?[0.17,0.24,0.29]:[0.105,0.155,0.20]);
+    for(const z of[0,18])g.box([12,0.03,z],[24,0.05,0.04],[0.31,0.45,0.49]);
+    for(const x of[0,24])g.box([x,0.03,9],[0.04,0.05,18],[0.31,0.45,0.49]);
+    for(const box of A.OBSTACLES){const size=sub(box.max,box.min),p=box.min.map((n,i)=>n+size[i]/2);
+      g.box(p,size,[0.20,0.28,0.34]);g.box([p[0],box.max[1]-0.04,p[2]],[size[0]-0.18,0.08,size[2]-0.18],[0.35,0.44,0.48]);
+      for(let i=0;i<3;i++)g.box([p[0]-0.8+i*0.8,p[1]+0.5,box.max[2]+0.005],[0.42,0.2,0.015],[0.56,0.77,0.77]);
+      for(let k=1;k<5;k++)g.line([box.min[0]+0.2,box.max[1]+0.015,box.min[2]+k*0.5],[box.max[0]-0.2,box.max[1]+0.015,box.min[2]+k*0.5],[0.18,0.29,0.36]);
+    }
+    A.STATIONS.forEach((s,i)=>{
+      const c=COLORS[i],h=s.p[1];
+      g.cylinder([s.p[0],0.16,s.p[2]],1.25,0.3,[0.13,0.20,0.25],24);
+      g.ring([s.p[0],0.32,s.p[2]],1.10,c);g.ring([s.p[0],0.33,s.p[2]],0.85,c.map(v=>v*0.55));
+      for(let j=0;j<3;j++){const t=j*2*Math.PI/3;const x=s.p[0]+0.55*Math.cos(t),z=s.p[2]+0.55*Math.sin(t);
+        g.line([x,0.4,z],[x,h-0.35,z],c.map(v=>v*0.35));}
+      g.ring(s.p,0.78,c);g.ring(add(s.p,[0,0.12,0]),0.7,c.map(v=>v*0.4));
+      for(let y=1;y<h;y++)g.line([s.p[0]+1.5,y,s.p[2]],[s.p[0]+1.68,y,s.p[2]],[0.31,0.46,0.53]);
+    });
+    for(const x of[0,24])for(const z of[0,18]){g.box([x,0.5,z],[0.18,1,0.18],[0.32,0.39,0.41]);g.octa([x,1.1,z],0.13,[0.65,0.91,0.71]);}
+    return g;
+  }
+  function dynamicScene(A,w,options={}){
+    const g=new Geometry(), selected=options.selected??0;
+    if(options.field!==false){
+      for(let y=0;y<A.GRID[1];y++)for(let z=0;z<A.GRID[2];z++)for(let x=0;x<A.GRID[0];x++){
+        if(options.fieldMode==='slice'&&y!==options.slice)continue;
+        const j=A.index(x,y,z),u=w.field[j];if(u<0.03)continue;
+        const p=A.cellPosition(x,y,z),c=[0.10+u*0.20,0.23+u*0.68,0.29+u*0.50];
+        g.octa(p,0.014+u*0.095,c);
+      }
+    }
+    w.agents.forEach((a,i)=>{
+      const c=COLORS[i];
+      g.octa(a.p,0.39,c,0.72);g.box(add(a.p,[0,-0.15,0]),[0.21,0.18,0.21],[0.07,0.13,0.16]);
+      for(const d of[[0.5,0,0],[-0.5,0,0],[0,0,0.5],[0,0,-0.5]]){g.line(a.p,add(a.p,d),c);g.ring(add(a.p,d),0.15,c,12);}
+      if(options.trails!==false)for(let j=1;j<a.trail.length;j++)g.line(a.trail[j-1],a.trail[j],c.map(v=>v*(0.2+0.65*j/a.trail.length)));
+      g.line([a.p[0],0.02,a.p[2]],a.p,c.map(v=>v*0.2));g.ring([a.p[0],0.02,a.p[2]],0.38,c.map(v=>v*0.4),20);
+      if(i===selected){g.ring(a.p,0.88,c);const m=a.m.slice(0,3).map((n,j)=>n*A.SIZE[j]);
+        if(options.beliefs){g.line(a.p,m,[1,0.48,0.5]);g.ring(m,0.5,[1,0.48,0.5]);}
+        if(options.targets){const t=A.target(w,a);g.line(a.p,t,c.map(v=>v*0.35));g.ring(t,0.6,c,24);g.line(add(t,[-0.2,0,0]),add(t,[0.2,0,0]),c);}
+      }
+    });
+    for(const b of w.probes)g.octa(b.p,0.25,[0.98,0.67,0.85]);
+    if(options.ghosts)options.ghosts.forEach((tr,i)=>{for(let j=1;j<tr.length;j++)if(j%3!==0)g.line(tr[j-1],tr[j],COLORS[i].map(v=>0.3+v*0.55));});
+    A.STATIONS.forEach((s,i)=>g.octa(s.p,0.16,i===0&&!w.sourceOn?[0.26,0.3,0.32]:COLORS[i]));
+    return g;
+  }
+  const VERTEX='attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uMatrix;uniform vec3 uEye;varying vec3 vColor;varying float vDistance;void main(){float light=.48+.52*max(dot(normalize(aNormal),normalize(vec3(-.4,1.,.6))),0.);vColor=aColor*light;vDistance=distance(aPosition,uEye);gl_Position=uMatrix*vec4(aPosition,1.);}';
+  const FRAGMENT='precision mediump float;varying vec3 vColor;varying float vDistance;void main(){float fog=smoothstep(36.,90.,vDistance);gl_FragColor=vec4(mix(vColor,vec3(.035,.064,.090),fog),1.);}';
+  class Renderer {
+    constructor(canvas,A,onSelect,onStatus){
+      this.canvas=canvas;this.A=A;this.onSelect=onSelect;this.onStatus=onStatus;this.camera={mode:'orbit',yaw:0.70,pitch:0.65,distance:34,target:[12,2.5,9],eye:[12,4,17]};
+      this.keys=new Set();this.pointers=new Map();this.matrix=null;this.world=null;this.selected=0;this.lost=false;
+      this.gl=canvas.getContext('webgl',{alpha:false,antialias:true,preserveDrawingBuffer:false});
+      if(!this.gl)throw new Error('WebGL is unavailable. Enable hardware acceleration or open this file in another WebGL-capable browser.');
+      this.initialize();this.controls();
+      canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.lost=true;onStatus('Graphics paused: WebGL context lost. Export your session to keep it.');});
+      canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.initialize();onStatus('Graphics restored.');});
+    }
+    initialize(){
+      const gl=this.gl;const shader=(kind,src)=>{const s=gl.createShader(kind);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;};
+      const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,VERTEX));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,FRAGMENT));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));
+      this.program=p;this.attrs=['aPosition','aNormal','aColor'].map(n=>gl.getAttribLocation(p,n));this.uniform=gl.getUniformLocation(p,'uMatrix');this.eyeUniform=gl.getUniformLocation(p,'uEye');
+      this.buffers=[gl.createBuffer(),gl.createBuffer(),gl.createBuffer(),gl.createBuffer()];
+      this.static=staticScene(this.A);[this.static.tri,this.static.lines].forEach((a,i)=>{gl.bindBuffer(gl.ARRAY_BUFFER,this.buffers[i]);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(a),gl.STATIC_DRAW);});
+      gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.clearColor(.035,.064,.090,1);
+    }
+    setMode(mode){this.camera.mode=mode;this.keys.clear();if(mode==='explore'){this.camera.eye=[12,4,17];this.camera.yaw=Math.PI;this.camera.pitch=-0.08;}else{this.camera.yaw=.7;this.camera.pitch=mode==='top'?1.53:.65;this.camera.distance=mode==='follow'?13:34;this.camera.target=[12,2.5,9];}}
+    controls(){
+      const c=this.canvas;
+      c.addEventListener('contextmenu',e=>e.preventDefault());
+      c.addEventListener('pointerdown',e=>{c.focus();c.setPointerCapture(e.pointerId);this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:0});this.pinch=null;});
+      c.addEventListener('pointermove',e=>{
+        const p=this.pointers.get(e.pointerId);if(!p)return;const dx=e.clientX-p.x,dy=e.clientY-p.y;p.moved+=Math.hypot(dx,dy);p.x=e.clientX;p.y=e.clientY;
+        if(this.pointers.size===2){const v=[...this.pointers.values()],d=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y);if(this.pinch)this.camera.distance=clamp(this.camera.distance*this.pinch/d,5,65);this.pinch=d;return;}
+        if(e.shiftKey||e.buttons===2){this.camera.target[0]-=dx*.025;this.camera.target[2]-=dy*.025;}
+        else{this.camera.yaw-=dx*.006;this.camera.pitch=clamp(this.camera.pitch+(this.camera.mode==='explore'?-1:1)*dy*.006,this.camera.mode==='explore'?-1.3:.08,1.53);}
+      });
+      const end=e=>{const p=this.pointers.get(e.pointerId);if(p&&p.moved<5&&this.pointers.size===1&&this.world){const rect=c.getBoundingClientRect();let best=null,d=32;for(const a of this.world.agents){const v=this.project(a.p);if(v){const n=Math.hypot(v.x-(e.clientX-rect.left),v.y-(e.clientY-rect.top));if(n<d){d=n;best=a.id;}}}if(best!==null)this.onSelect(best);}this.pointers.delete(e.pointerId);this.pinch=null;};
+      c.addEventListener('pointerup',end);c.addEventListener('pointercancel',e=>{this.pointers.delete(e.pointerId);this.pinch=null;});
+      c.addEventListener('wheel',e=>{e.preventDefault();this.camera.distance=clamp(this.camera.distance*Math.exp(e.deltaY*.001),5,65);},{passive:false});
+      c.addEventListener('keydown',e=>{if(['w','a','s','d','q','e','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){this.keys.add(e.key);e.preventDefault();}});
+      c.addEventListener('keyup',e=>this.keys.delete(e.key));c.addEventListener('blur',()=>this.keys.clear());
+    }
+    project(p){return this.matrix?project(p,this.matrix,this.width,this.height):null;}
+    draw(w,options,dt=0.016){
+      if(this.lost)return;this.world=w;this.selected=options.selected??0;const gl=this.gl,c=this.canvas,cam=this.camera;
+      const rect=c.getBoundingClientRect();this.width=Math.max(1,rect.width);this.height=Math.max(1,rect.height);
+      const dpr=Math.min(globalThis.devicePixelRatio||1,2),width=Math.round(this.width*dpr),height=Math.round(this.height*dpr);
+      if(c.width!==width||c.height!==height){c.width=width;c.height=height;gl.viewport(0,0,width,height);}
+      let eye,target;
+      if(cam.mode==='explore'){
+        const dir=[Math.sin(cam.yaw)*Math.cos(cam.pitch),Math.sin(cam.pitch),Math.cos(cam.yaw)*Math.cos(cam.pitch)],right=[-Math.cos(cam.yaw),0,Math.sin(cam.yaw)];
+        const f=Number(this.keys.has('w')||this.keys.has('ArrowUp'))-Number(this.keys.has('s')||this.keys.has('ArrowDown')),r=Number(this.keys.has('d')||this.keys.has('ArrowRight'))-Number(this.keys.has('a')||this.keys.has('ArrowLeft'));
+        cam.eye=cam.eye.map((v,i)=>clamp(v+dt*5*(dir[i]*f+right[i]*r+(i===1?Number(this.keys.has('e'))-Number(this.keys.has('q')):0)),.4,this.A.SIZE[i]-.4));
+        for(const box of this.A.OBSTACLES){const hit=this.A.contact(cam.eye,box,.3);if(hit)cam.eye=cam.eye.map((v,i)=>v+hit.normal[i]*(hit.penetration+1e-6));}
+        eye=cam.eye;target=add(eye,dir);
+      }else{
+        if(cam.mode==='follow')cam.target=cam.target.map((v,i)=>v+(w.agents[this.selected].p[i]-v)*Math.min(1,dt*5));
+        target=cam.target;eye=add(target,[Math.sin(cam.yaw)*Math.cos(cam.pitch)*cam.distance,Math.sin(cam.pitch)*cam.distance,Math.cos(cam.yaw)*Math.cos(cam.pitch)*cam.distance]);
+      }
+      this.matrix=multiply(perspective(Math.PI/3.4,this.width/this.height,.1,160),lookAt(eye,target));
+      gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(this.program);gl.uniformMatrix4fv(this.uniform,false,new Float32Array(this.matrix));gl.uniform3fv(this.eyeUniform,new Float32Array(eye));
+      const dyn=dynamicScene(this.A,w,options),arrays=[this.static.tri,this.static.lines,dyn.tri,dyn.lines];
+      arrays.forEach((array,i)=>{gl.bindBuffer(gl.ARRAY_BUFFER,this.buffers[i]);if(i>1)gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(array),gl.DYNAMIC_DRAW);this.attrs.forEach((a,j)=>{gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,3,gl.FLOAT,false,36,j*12);});gl.drawArrays(i%2?gl.LINES:gl.TRIANGLES,0,array.length/9);});
+    }
+  }
+  return {Renderer,Geometry,COLORS,multiply,perspective,lookAt,project,staticScene,dynamicScene,VERTEX,FRAGMENT};
+});
+</script><script>(function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('./engine3d.js'):root.Archimedes3D);if(typeof module==='object'&&module.exports)module.exports=api;else root.ArchimedesController=api;})(typeof globalThis!=='undefined'?globalThis:this,function(A){
+  'use strict';
+  class Controller {
+    constructor(seed){this.session=A.createSession(seed);this.running=false;this.forecast=null;this.counter=null;this.candidate=0;}
+    get world(){return this.session.world;}
+    clearFuture(){this.forecast=null;this.counter=null;this.candidate=0;}
+    advance(n=1){this.session.world=A.step(this.world,n);if(n)this.clearFuture();}
+    save(label='Checkpoint'){this.session=A.checkpoint(this.session,label);}
+    change(fn,label){const before=A.checkpoint(this.session,'Before '+label);const world=fn(before.world);before.world=world;this.session=A.checkpoint(before,label);this.clearFuture();}
+    intervention(kind){this.change(w=>A.intervene(w,kind),kind);}
+    action(value){this.change(w=>A.setAction(w,value),value);}
+    goal(value){this.change(w=>A.setGoal(w,value),'objective: '+value);}
+    coupling(value){this.change(w=>A.setParameters(w,{coupling:value}),'coupling '+value.toFixed(2));}
+    restore(id){
+      this.running=false;const target=this.session.history.find(n=>n.id===id);if(!target)throw new Error('Checkpoint not found.');
+      // Preserve unsaved current work; restore the requested state even if pruning removes its old node.
+      if(A.checksum(this.world)!==A.checksum(this.session.history.find(n=>n.id===this.session.cursor).world))this.save('Before rewind');
+      if(this.session.history.some(n=>n.id===id))this.session=A.restore(this.session,id);
+      else{this.session.world=A.clone(target.world);this.save('Restored '+target.label);}
+      this.clearFuture();
+    }
+    explore(options){this.running=false;this.forecast=A.plan(this.world,options);this.counter=null;this.candidate=0;return this.forecast;}
+    selectCandidate(i){if(!this.forecast||!Number.isInteger(i)||i<0||i>=this.forecast.candidates.length)throw new Error('Unknown candidate.');this.candidate=i;}
+    applyCandidate(){
+      if(!this.forecast||this.forecast.origin!==A.checksum(this.world))throw new Error('This forecast is stale. Explore futures again.');
+      const action=this.forecast.candidates[this.candidate].sequence[0];this.action(action);return action;
+    }
+    compare(){this.running=false;this.counter=A.counterfactual(this.world);this.forecast=null;return this.counter;}
+    reset(seed){const next=A.createSession(seed);this.session=next;this.running=false;this.clearFuture();}
+    export(){return A.exportSession(this.session);}
+    import(text){const next=A.importSession(text);this.session=next;this.running=false;this.clearFuture();}
+  }
+  return {Controller};
+});
+</script><script>(function(){
+  'use strict';
+  const A=window.Archimedes3D,V=window.ArchimedesView,$=id=>document.getElementById(id);
+  const ctl=new window.ArchimedesController.Controller('ARCHIMEDES-3D-001');
+  const STORAGE='archimedes-world3d-0.2',colors=['#c5f776','#57d1f0','#ffa363'];
+  let selected=0,renderer=null,busy=false,revision=0,accumulator=0,last=performance.now(),lastDraw=0,lastUI=0,lastSaveTick=0;
+  let options={field:true,fieldMode:'volume',slice:2,trails:true,beliefs:true,targets:false,selected:0,ghosts:null};
+  function status(text,error=false){$('status').textContent=text;$('status').classList.toggle('error',error);}
+  function persist(){try{localStorage.setItem(STORAGE,ctl.export());return true;}catch{return false;}}
+  try{const saved=localStorage.getItem(STORAGE);if(saved){ctl.import(saved);status('Previous 3D session restored. The world is paused.');}}catch{status('The previous browser save could not be loaded. A fresh world is ready; you can import an exported session.',true);}
+  function invalidate(){revision++;options.ghosts=null;accumulator=0;lastSaveTick=ctl.world.tick;}
+  function guarded(fn,message){try{fn();invalidate();refresh(true);persist();if(message)status(message);}catch(e){status(e.message,true);}}
+  function button(id,fn,message){$(id).addEventListener('click',()=>guarded(fn,message));}
+  function select(id){selected=id;options.selected=id;refresh(false);}
+  try{renderer=new V.Renderer($('world'),A,select,(message)=>{ctl.running=false;status(message);refresh(false);});}
+  catch(e){$('graphics-error').hidden=false;$('graphics-error').textContent=e.message;status('The simulation controls remain available. The 3D view needs WebGL.',true);}
+  const agentLabels=['Surveying the volume','Holding at a station','Exchanging stations','Returning to source'];
+  function updateSpark(){
+    const canvas=$('spark'),ctx=canvas.getContext('2d');if(!ctx)return;
+    const width=Math.max(120,canvas.getBoundingClientRect().width),height=64,dpr=Math.min(window.devicePixelRatio||1,2);
+    if(canvas.width!==Math.round(width*dpr)||canvas.height!==height*dpr){canvas.width=Math.round(width*dpr);canvas.height=height*dpr;}
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+    ctx.strokeStyle='#233c45';ctx.lineWidth=1;for(const y of[7,31,56]){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y);ctx.stroke();}
+    const traces=ctl.world.traces;
+    for(const [key,color]of[['C',colors[0]],['energy',colors[1]]]){ctx.strokeStyle=color;ctx.lineWidth=1.3;ctx.beginPath();traces.forEach((m,i)=>{const x=i/Math.max(1,traces.length-1)*width,y=58-m[key]*51;if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);});ctx.stroke();}
+  }
+  function refresh(history=false){
+    const w=ctl.world,m=A.metrics(w),a=w.agents[selected];
+    $('run').textContent=ctl.running?'Ⅱ  Pause world':'▶  Run world';$('run-state').textContent=ctl.running?'RUNNING':'PAUSED';$('run-state').classList.toggle('running',ctl.running);
+    $('sim-time').textContent='T + '+m.time.toFixed(1).padStart(6,'0')+' s';$('regime').textContent=m.regime.toUpperCase();
+    $('action').value=w.action;$('goal').value=w.goal;
+    if(document.activeElement!==$('coupling')){$('coupling').value=w.params.coupling;$('coupling-value').textContent=w.params.coupling.toFixed(2);}
+    $('source').replaceChildren();const icon=document.createElement('span');icon.className='button-glyph';icon.textContent='ϟ';$('source').append(icon,document.createTextNode(w.sourceOn?'Source off':'Source on'));
+    $('metric-c').textContent=m.C.toFixed(3);$('metric-energy').textContent=(m.energy*100).toFixed(1)+'%';$('metric-coverage').textContent=(m.coverage*100).toFixed(2)+'%';$('metric-d').textContent=m.D.toFixed(4);$('metric-phi').textContent=m.phi.toFixed(3);
+    $('agent-name').textContent=a.name;$('agent-number').textContent=String(a.id+1).padStart(2,'0');$('agent-orb').style.background=colors[selected];
+    $('agent-intent').textContent=a.energy<.22?'Low reserve · returning to source':agentLabels[A.ACTIONS.indexOf(w.action)];
+    ['x','y','z'].forEach((key,i)=>{$('actual-'+key).textContent=a.p[i].toFixed(2);$('model-'+key).textContent=(a.m[i]*A.SIZE[i]).toFixed(2);});
+    $('agent-speed').textContent=Math.hypot(...a.v).toFixed(2)+' u/s';$('agent-sensor').textContent=((w.tick-a.lastSeen)*A.DT).toFixed(1)+' s'+(w.blackout?' · BLIND':'');
+    $('agent-energy').textContent=(a.energy*100).toFixed(1)+'%';$('agent-energy-bar').style.width=a.energy*100+'%';$('agent-energy-bar').style.background=colors[selected];
+    for(let i=0;i<3;i++){$('agent-'+i).classList.toggle('active',i===selected);$('agent-'+i).setAttribute('aria-pressed',String(i===selected));}
+    $('probe-count').textContent=w.probes.length+' PROBES';$('plan').disabled=busy;$('counterfactual').disabled=busy;
+    $('ghost-label').hidden=!options.ghosts;updateSpark();
+    if(history){
+      $('history-count').textContent=ctl.session.history.length+' checkpoints';$('timeline').replaceChildren();
+      for(const n of ctl.session.history){const b=document.createElement('button');b.className='checkpoint'+(n.id===ctl.session.cursor?' active':'');b.title='Restore '+n.label+' at '+(n.world.tick*A.DT).toFixed(1)+' seconds';
+        const title=document.createElement('strong');title.textContent=n.label;const small=document.createElement('small');small.textContent='#'+n.id+' · '+(n.world.tick*A.DT).toFixed(1)+'s · parent '+(n.parent??'—');b.append(title,small);b.addEventListener('click',()=>guarded(()=>ctl.restore(n.id),'Checkpoint restored. Your next intervention can create a new branch.'));$('timeline').append(b);}
+      $('events').replaceChildren();for(const event of w.events.slice(-5).reverse()){const li=document.createElement('li'),time=document.createElement('time'),text=document.createElement('span');time.textContent='T + '+(event.tick*A.DT).toFixed(1)+' s';text.textContent=event.text;li.append(time,text);$('events').append(li);}
+      refreshForecast();
+    }
+  }
+  function refreshForecast(){
+    const host=$('experiment-output');host.replaceChildren();
+    const heading=document.createElement('strong'),p=document.createElement('p');
+    if(ctl.forecast){
+      const f=ctl.forecast;heading.textContent='Possible futures · '+f.evaluated+' branches evaluated';p.textContent='Preview only. Scores reflect the selected objective and the model’s assumptions.';host.append(heading,p);
+      const cards=document.createElement('div');cards.className='future-cards';
+      f.candidates.forEach((c,i)=>{const b=document.createElement('button');b.className='future-card'+(i===ctl.candidate?' active':'');b.setAttribute('aria-pressed',String(i===ctl.candidate));const title=document.createElement('strong'),detail=document.createElement('small');title.textContent=c.sequence.join(' → ');detail.textContent='Score '+c.score.toFixed(3)+' · energy '+(c.metrics.energy*100).toFixed(1)+'%';b.append(title,detail);b.addEventListener('click',()=>{ctl.selectCandidate(i);options.ghosts=c.trails;refreshForecast();refresh(false);});cards.append(b);});host.append(cards);
+      const actions=document.createElement('div');actions.className='future-actions';const apply=document.createElement('button');apply.className='primary';apply.textContent='Apply first intention';apply.addEventListener('click',()=>guarded(()=>{const action=ctl.applyCandidate();status('Applied '+action+'. Run the world to observe it.');}));const info=document.createElement('span');info.textContent=(f.depth*f.horizon*A.DT).toFixed(1)+'s lookahead · '+f.simulatedTicks+' simulated ticks';actions.append(apply,info);host.append(actions);
+      options.ghosts=f.candidates[ctl.candidate].trails;
+    }else if(ctl.counter){
+      const c=ctl.counter;heading.textContent='Paired counterfactual · source '+(c.sourceOn?'ON':'OFF')+' in the alternative';p.textContent='At +'+(c.ticks*A.DT).toFixed(1)+'s: current-source mean energy '+(c.factual.energy*100).toFixed(2)+'%; alternative '+(c.alternate.energy*100).toFixed(2)+'%. Coherence '+c.factual.C.toFixed(4)+' / '+c.alternate.C.toFixed(4)+'.';
+      host.append(heading,p);const note=document.createElement('p');note.textContent='Same starting snapshot. Dashed paths show the alternative. This comparison does not alter the live world.';host.append(note);options.ghosts=c.trails;
+    }else{heading.textContent='One present. Several possible futures.';p.textContent='Explore futures to preview bounded action sequences. Dashed paths are simulated alternatives.';host.append(heading,p);options.ghosts=null;}
+    $('ghost-label').hidden=!options.ghosts;
+  }
+  button('run',()=>{ctl.running=!ctl.running;if(ctl.running){ctl.clearFuture();options.ghosts=null;}},'');
+  button('step',()=>{ctl.running=false;ctl.advance(1);},'Advanced one tick: 0.1 simulation seconds.');
+  for(const kind of['pulse','blackout','source','probe','reset-model','clear-probes'])button(kind,()=>ctl.intervention(kind),'Intervention applied and checkpointed.');
+  $('action').addEventListener('change',()=>guarded(()=>ctl.action($('action').value),'Agent intention changed.'));
+  $('goal').addEventListener('change',()=>guarded(()=>ctl.goal($('goal').value),'Planner objective changed. Explore futures to compare actions.'));
+  $('coupling').addEventListener('input',()=>{$('coupling-value').textContent=Number($('coupling').value).toFixed(2);});
+  $('coupling').addEventListener('change',()=>guarded(()=>ctl.coupling(Number($('coupling').value)),'Memory coupling changed.'));
+  button('snapshot',()=>ctl.save('Checkpoint '+ctl.session.nextId),'Checkpoint saved.');
+  button('reset',()=>{ctl.reset($('seed').value.trim());lastSaveTick=0;if(renderer)renderer.setMode('orbit');$('camera').value='orbit';},'New seeded world initialized.');
+  async function explore(counter=false){
+    if(busy)return;ctl.running=false;const token=revision;busy=true;status(counter?'Computing paired source intervention…':'Exploring bounded 3D futures…');refresh(false);
+    await new Promise(resolve=>setTimeout(resolve,30));
+    try{if(revision!==token){status('World changed. Request a fresh comparison.');return;}if(counter)ctl.compare();else ctl.explore({depth:Number($('depth').value),width:3,horizon:Number($('horizon').value)});refreshForecast();status('Comparison ready. The live world is unchanged.');}
+    catch(e){status(e.message,true);}finally{busy=false;refresh(false);}
+  }
+  $('plan').addEventListener('click',()=>explore());$('counterfactual').addEventListener('click',()=>explore(true));
+  for(let i=0;i<3;i++)$('agent-'+i).addEventListener('click',()=>select(i));
+  for(const id of['field','trails','beliefs','targets'])$(id).addEventListener('change',()=>{options[id]=$(id).checked;});
+  $('field-mode').addEventListener('change',()=>{options.fieldMode=$('field-mode').value;$('slice').hidden=options.fieldMode!=='slice';});
+  $('slice').addEventListener('input',()=>{options.slice=Number($('slice').value);});
+  function cameraMode(){if(renderer)renderer.setMode($('camera').value);$('camera-hint').textContent=$('camera').value==='explore'?'Drag to look · W/A/S/D move · Q/E up/down · Focus world first':'Drag to orbit · Scroll to zoom · Click an agent';}
+  $('camera').addEventListener('change',cameraMode);$('home-view').addEventListener('click',()=>{$('camera').value='orbit';cameraMode();});
+  $('help').addEventListener('click',()=>$('guide').showModal());
+  function download(name,text){const blob=new Blob([text],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  button('export',()=>download('Archimedes-World3D-'+ctl.world.tick+'.json',ctl.export()),'Session exported with exact state and branch history.');
+  $('import').addEventListener('click',()=>$('file').click());
+  $('file').addEventListener('change',async()=>{const file=$('file').files[0];if(!file)return;
+    const token=++revision;ctl.running=false;refresh(false);
+    try{if(file.size>12_000_000)throw new Error('Session file exceeds 12 MB.');const text=await file.text();if(revision!==token)throw new Error('World changed while reading the file. Import again.');ctl.import(text);invalidate();$('seed').value=ctl.world.seed;lastSaveTick=ctl.world.tick;refresh(true);persist();status('3D session imported. Ready to resume.');}
+    catch(e){status('Import rejected: '+e.message,true);}finally{$('file').value='';}
+  });
+  document.addEventListener('keydown',e=>{if(e.code==='Space'&&(e.target===$('world')||e.target===document.body)&&!$('guide').open){e.preventDefault();$('run').click();}});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){ctl.running=false;accumulator=0;persist();refresh(false);}});
+  window.addEventListener('pagehide',persist);
+  $('seed').value=ctl.world.seed;refresh(true);
+  function frame(now){
+    const elapsed=Math.min(.25,Math.max(0,(now-last)/1000));last=now;
+    if(ctl.running&&!busy){accumulator+=elapsed*Number($('speed').value);const ticks=Math.min(10,Math.floor(accumulator/A.DT));if(ticks){accumulator-=ticks*A.DT;ctl.advance(ticks);options.ghosts=null;}}
+    if(now-lastDraw>=32){if(renderer)renderer.draw(ctl.world,options,Math.min(.1,(now-lastDraw)/1000));lastDraw=now;
+      for(let i=0;i<3;i++){const p=renderer&&renderer.project(ctl.world.agents[i].p),label=$('label-'+i);label.hidden=!p||!p.visible;if(p){label.style.left=p.x+'px';label.style.top=(p.y-19)+'px';}}
+    }
+    if(now-lastUI>200){refresh(false);lastUI=now;}
+    if(ctl.world.tick-lastSaveTick>=100){persist();lastSaveTick=ctl.world.tick;}
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  // Read-only diagnostics for integration tests and reproducible bug reports.
+  window.ArchimedesWorldDebug={snapshot:()=>A.clone(ctl.session),metrics:()=>A.metrics(ctl.world),graphics:()=>({available:!!renderer,lost:renderer?.lost??false}),version:A.VERSION};
+})();
+</script></body>
+</html>
