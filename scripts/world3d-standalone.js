@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),read=name=>fs.readFileSync(path.join(root,name),'utf8');
+let html=read('world3d/index.html');
+html=html.replace('<link rel="stylesheet" href="world.css">',`<style>${read('world3d/world.css')}</style>`);
+html=html.replace(/<script src="(?:engine3d|renderer|controller|world)\.js" defer><\/script>/g,'');
+html=html.replace('href="../icon.svg"',`href="data:image/svg+xml;base64,${Buffer.from(read('icon.svg')).toString('base64')}"`);
+html=html.replace('href="MATHEMATICS.md"',`href="data:text/markdown;base64,${Buffer.from(read('world3d/MATHEMATICS.md')).toString('base64')}" download="Archimedes-World3D-Mathematics.md"`);
+html=html.replace('</body>',['engine3d','renderer','controller','world'].map(name=>`<script>${read('world3d/'+name+'.js').replace(/<\/script/gi,'<\\/script')}</script>`).join('')+'</body>');
+fs.writeFileSync(path.join(root,'Archimedes-World3D.html'),html);
+console.log('Archimedes-World3D.html built with embedded scripts, style, icon and mathematics.');
