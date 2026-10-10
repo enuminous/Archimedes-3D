@@ -1,5 +1,19 @@
 # The Archimedes Engine
 
+<!-- ENUMINOUS-NETWORK:START -->
+**eNuminous network:** [All repositories](https://enuminous.github.io/EFMW/repositories.html) · [EFMW](https://enuminous.github.io/EFMW/) · [102 equations](https://github.com/enuminous/Monolithic_102_EFMW) · [165 triplets](https://enuminous.github.io/FieldSpace/) · [Zoo](https://enuminous.github.io/Tortoise/) · [Lean](https://enuminous.github.io/Aristotle-102-Monolithic-Lean/) · [Engine](https://enuminous.github.io/Archimedes-Engine/) · [Papers](https://enuminous.github.io/medium/papers-essays-index.html) · [Audit](https://github.com/enuminous/EFMW_Post156_Zoo_Audit/blob/main/portfolio/INTERLOCK_AUDIT.md)
+
+[Repository](https://github.com/enuminous/Archimedes-3D) · [Published page](https://enuminous.github.io/Archimedes-3D/)
+
+<details>
+<summary>Repository indexes (2)</summary>
+
+- [index.html](https://github.com/enuminous/Archimedes-3D/blob/main/index.html) · [Open page](https://enuminous.github.io/Archimedes-3D/index.html)
+- [world3d/index.html](https://github.com/enuminous/Archimedes-3D/blob/main/world3d/index.html) · [Open page](https://enuminous.github.io/Archimedes-3D/world3d/index.html)
+
+</details>
+<!-- ENUMINOUS-NETWORK:END -->
+
 **WorldEngine / Totality laboratory · release 0.2.0 · September 30, 2026**
 
 ## New: World 3D
