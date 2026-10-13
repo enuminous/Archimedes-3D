@@ -1,6 +1,7 @@
 import Mathlib
 
 namespace World3D
+noncomputable section
 
 /-- Cell spacings are 24/16, 10/6, 18/12, from world3d/MATHEMATICS.md. -/
 def wx (κ : ℝ) : ℝ := (1/10) * κ / (3/2 : ℝ)^2
@@ -10,6 +11,7 @@ def centerWeight (κ : ℝ) : ℝ := 1 - 2 * (wx κ + wy κ + wz κ) - 0.0055
 
 theorem weights_nonnegative (κ : ℝ) (hκ : κ ∈ Set.Icc 0 1) :
     0 ≤ wx κ ∧ 0 ≤ wy κ ∧ 0 ≤ wz κ ∧ 0 ≤ centerWeight κ := by
+  have hκ0 := hκ.1
   dsimp [wx, wy, wz, centerWeight]
   constructor
   · positivity
@@ -29,12 +31,14 @@ theorem source_free_step_nonnegative (κ c xp xm yp ym zp zm : ℝ)
     (hx : 0 ≤ xp ∧ 0 ≤ xm) (hy : 0 ≤ yp ∧ 0 ≤ ym) (hz : 0 ≤ zp ∧ 0 ≤ zm) :
     0 ≤ centerWeight κ * c + wx κ * (xp+xm) + wy κ * (yp+ym) + wz κ * (zp+zm) := by
   obtain ⟨ha,hb,hd,he⟩ := weights_nonnegative κ hκ
+  rcases hx with ⟨hxp,hxm⟩
+  rcases hy with ⟨hyp,hym⟩
+  rcases hz with ⟨hzp,hzm⟩
   positivity
 
 theorem uniform_field_decay (κ c : ℝ) :
     centerWeight κ * c + wx κ * (c+c) + wy κ * (c+c) + wz κ * (c+c) = 0.9945*c := by
-  have h := weight_sum κ
-  nlinarith
+  linear_combination c * weight_sum κ
 
 theorem bounded_step (κ c xp xm yp ym zp zm : ℝ)
     (hκ : κ ∈ Set.Icc 0 1) (hc : c ∈ Set.Icc 0 1)
