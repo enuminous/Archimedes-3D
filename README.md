@@ -116,3 +116,10 @@ The expected routes after a successful deployment are `https://enuminous.github.
 This release demonstrates a functioning computational model. Its scalar field is a generic source–diffusion–decay model, **not a numerical solution of the canonical EFMW root wave equation**. Its physical constants are simulation choices. High C measures agreement between a state and its internal estimate; it does not establish truth, identity, consciousness, or AGI. Monitors use illustrative, uncalibrated thresholds. ME-102 and external control-warning claims remain unresolved.
 
 No new license grant is made by this repository. Licensing of the project and prior EFMW material remains for the rights holder to choose. See [RIGHTS.md](RIGHTS.md). No upstream code or external imagery has been copied into this release.
+
+## Lean 4 verification
+
+The pinned [formal package](formal/VERIFICATION.md) contains kernel-checked mathematical
+statements with an explicit [coverage and obligation ledger](formal/COVERAGE.md).
+The `Lean verification` workflow builds the package and tests its strict axiom audit.
+The workflow result for a commit, rather than this link alone, establishes compilation.
