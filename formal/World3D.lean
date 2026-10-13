@@ -61,4 +61,5 @@ theorem rebound_dissipates_normal_energy (v : ℝ) : (-0.55*v)^2 ≤ v^2 := by
 
 theorem maximum_planner_ticks : (4 + 4 * 4 * (4-1)) * 40 = (2080 : ℕ) := by decide +kernel
 
+end
 end World3D
